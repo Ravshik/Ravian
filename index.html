@@ -1,0 +1,1180 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#07152b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Finora">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>Finora</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f7fb;
+      --surface: rgba(255, 255, 255, .92);
+      --surface-2: #eef3fb;
+      --text: #07152b;
+      --muted: #6c7890;
+      --line: rgba(7, 21, 43, .10);
+      --accent: #2388ff;
+      --accent-2: #7248ff;
+      --accent-soft: #e9f2ff;
+      --navy: #07152b;
+      --ok: #14a06f;
+      --warn: #b87916;
+      --bad: #dc5b5b;
+      --field: #ffffff;
+      --yellow: #f5b72f;
+      --blue: #4d9de0;
+      --violet: #8e7cc3;
+      font-family: Arial, "Segoe UI", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #07111f;
+        --surface: rgba(15, 29, 51, .92);
+        --surface-2: #13243d;
+        --text: #eef4f7;
+        --muted: #a6b5c3;
+        --line: rgba(255, 255, 255, .10);
+        --accent: #45a3ff;
+        --accent-2: #8a68ff;
+        --accent-soft: rgba(69, 163, 255, .14);
+        --navy: #07152b;
+        --ok: #73d7a7;
+        --warn: #e1b15f;
+        --bad: #f08383;
+        --field: #111a23;
+      }
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { min-height: 100%; touch-action: manipulation; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 76% -8%, rgba(114, 72, 255, .20), transparent 34%),
+        radial-gradient(circle at 0% 12%, rgba(35, 136, 255, .16), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; border: 0; }
+    .app {
+      width: min(calc(100% - 28px), 812px);
+      margin: 0 auto;
+      padding: max(16px, env(safe-area-inset-top)) 14px calc(108px + env(safe-area-inset-bottom));
+    }
+    .top { display: grid; gap: 12px; margin-bottom: 12px; }
+    .head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .head-actions { display: flex; gap: 8px; align-items: center; }
+    .brand { display: flex; gap: 12px; align-items: center; min-width: 0; }
+    .brand-copy { display: grid; gap: 2px; min-width: 0; }
+    .brand b { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      flex: 0 0 52px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #fff, #edf4ff);
+      box-shadow: 0 14px 34px rgba(35, 136, 255, .20);
+    }
+    .finora-mark {
+      width: 31px;
+      height: 34px;
+      position: relative;
+      display: block;
+    }
+    .finora-mark:before,
+    .finora-mark:after,
+    .finora-mark i {
+      content: "";
+      position: absolute;
+      left: 0;
+      border-radius: 18px 4px 18px 4px;
+      background: linear-gradient(135deg, #2aa2ff 8%, #2156ff 58%, #7c3cff 100%);
+    }
+    .finora-mark:before { top: 0; width: 31px; height: 12px; transform: skewX(-14deg); }
+    .finora-mark:after { top: 13px; width: 23px; height: 11px; transform: skewX(-14deg); }
+    .finora-mark i { top: 23px; width: 13px; height: 11px; background: linear-gradient(135deg, #255bff, #8747ff); }
+    h1 { margin: 0; font-size: 34px; line-height: 1.04; letter-spacing: 0; }
+    h2 { margin: 0; font-size: 21px; line-height: 1.18; letter-spacing: 0; }
+    h3 { margin: 0; font-size: 17px; line-height: 1.25; letter-spacing: 0; }
+    p { margin: 0; }
+    .muted, .meta { color: var(--muted); line-height: 1.42; }
+    .meta { font-size: 13px; }
+    .panel, .card, .stat, .modal-panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+    }
+    .panel { padding: 16px; margin-bottom: 14px; display: grid; gap: 14px; box-shadow: 0 18px 45px rgba(7, 21, 43, .06); }
+    .card { padding: 14px; display: grid; gap: 10px; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      border-color: rgba(255, 255, 255, .12);
+      background:
+        radial-gradient(circle at 88% 10%, rgba(130, 82, 255, .70), transparent 32%),
+        linear-gradient(135deg, #07152b 0%, #0d2d63 48%, #2388ff 130%);
+      box-shadow: 0 24px 60px rgba(7, 21, 43, .22);
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      right: -42px;
+      top: -38px;
+      width: 150px;
+      height: 150px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .08);
+    }
+    .hero .meta,
+    .hero .stat span,
+    .hero .quick-action span { color: rgba(255, 255, 255, .70); }
+    .hero .stat,
+    .hero .quick-action {
+      background: rgba(255, 255, 255, .10);
+      border-color: rgba(255, 255, 255, .14);
+      color: #fff;
+      backdrop-filter: blur(12px);
+    }
+    .balance { display: grid; gap: 6px; }
+    .balance strong { font-size: 42px; line-height: 1; letter-spacing: 0; overflow-wrap: anywhere; }
+    .tools, .badges, .actions, .quick-grid, .subtabs, .grid, .stats, .list, .form { display: grid; gap: 10px; }
+    .tools { grid-template-columns: 1fr auto; align-items: center; }
+    .quick-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .subtabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .stats { grid-template-columns: repeat(3, 1fr); }
+    .tab, .subtab, .primary, .secondary, .danger, .quiet, .icon-btn, .quick-action {
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--field);
+      color: var(--muted);
+      font-weight: 900;
+    }
+    .primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .secondary { color: var(--accent); background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 28%, var(--line)); }
+    .danger { color: var(--bad); background: color-mix(in srgb, var(--bad) 9%, var(--surface)); border-color: color-mix(in srgb, var(--bad) 25%, var(--line)); }
+    .quiet { min-height: 38px; padding: 0 10px; font-size: 13px; }
+    .icon-btn { width: 44px; display: grid; place-items: center; color: var(--accent); background: var(--accent-soft); }
+    .quick-action { display: grid; gap: 3px; align-content: center; padding: 12px 10px; color: var(--text); background: var(--surface-2); }
+    .quick-action span { color: var(--muted); font-size: 11px; font-weight: 800; }
+    label { display: grid; gap: 6px; min-width: 0; color: var(--muted); font-size: 13px; font-weight: 900; }
+    input, select, textarea {
+      width: 100%;
+      max-width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: var(--field);
+      outline: none;
+    }
+    select {
+      appearance: none;
+      padding-right: 38px;
+      background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+      background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent); }
+    .stat { padding: 10px 8px; text-align: center; }
+    .stat b { display: block; font-size: 22px; line-height: 1.05; }
+    .stat span { color: var(--muted); font-size: 12px; font-weight: 800; }
+    .badge, .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 9px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.1;
+      background: var(--surface-2);
+    }
+    .pill.ok { color: var(--ok); background: color-mix(in srgb, var(--ok) 10%, var(--surface)); border-color: color-mix(in srgb, var(--ok) 25%, var(--line)); }
+    .pill.warn { color: var(--warn); background: color-mix(in srgb, var(--warn) 12%, var(--surface)); border-color: color-mix(in srgb, var(--warn) 25%, var(--line)); }
+    .pill.bad { color: var(--bad); background: color-mix(in srgb, var(--bad) 9%, var(--surface)); border-color: color-mix(in srgb, var(--bad) 25%, var(--line)); }
+    .row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+    .mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(35, 136, 255, .14), rgba(114, 72, 255, .12));
+      color: var(--accent);
+      font-weight: 950;
+      border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+    }
+    .name { font-weight: 950; line-height: 1.2; overflow-wrap: anywhere; }
+    .amount { text-align: right; font-weight: 950; white-space: nowrap; }
+    .amount.income { color: var(--ok); }
+    .amount.expense { color: var(--bad); }
+    .section-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .chart-wrap { display: grid; grid-template-columns: 160px 1fr; gap: 12px; align-items: center; }
+    .donut {
+      width: 160px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent) 0 35%, var(--yellow) 35% 58%, var(--blue) 58% 76%, var(--violet) 76% 88%, var(--line) 88% 100%);
+      position: relative;
+      border: 1px solid var(--line);
+    }
+    .donut:after { content: ""; position: absolute; inset: 34px; border-radius: 50%; background: var(--surface); border: 1px dashed var(--line); }
+    .donut-value { position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; text-align: center; font-weight: 950; }
+    .progress { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+    .progress span { display: block; height: 100%; width: var(--value); background: var(--accent); border-radius: inherit; }
+    .progress.warn span { background: var(--warn); }
+    .progress.bad span { background: var(--bad); }
+    .bars { height: 190px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; align-items: end; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--field); }
+    .bar { display: grid; gap: 5px; align-items: end; min-width: 0; }
+    .bar-stack { height: 140px; display: flex; align-items: end; gap: 3px; justify-content: center; }
+    .bar span { width: 12px; border-radius: 4px 4px 0 0; min-height: 4px; }
+    .bar small { color: var(--muted); font-size: 11px; text-align: center; overflow: hidden; text-overflow: ellipsis; }
+    .empty { text-align: center; color: var(--muted); padding: 24px 8px; }
+    .bottom-nav {
+      position: fixed;
+      z-index: 25;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: min(100%, 840px);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      padding: 8px;
+      margin-bottom: max(10px, env(safe-area-inset-bottom));
+      background: rgba(255, 255, 255, .84);
+      border: 1px solid rgba(7, 21, 43, .08);
+      border-radius: 24px;
+      box-shadow: 0 18px 44px rgba(7, 21, 43, .16);
+      backdrop-filter: blur(16px);
+    }
+    .nav-btn {
+      min-height: 50px;
+      border-radius: 14px;
+      background: transparent;
+      color: var(--muted);
+      display: grid;
+      gap: 2px;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .nav-btn b { font-size: 18px; line-height: 1; }
+    .nav-btn.active {
+      background: linear-gradient(135deg, rgba(35, 136, 255, .16), rgba(114, 72, 255, .14));
+      color: var(--accent);
+    }
+    .fab {
+      position: fixed;
+      left: 50%;
+      bottom: calc(74px + max(10px, env(safe-area-inset-bottom)));
+      transform: translateX(-50%);
+      z-index: 30;
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #2388ff, #7248ff);
+      color: #fff;
+      font-size: 34px;
+      box-shadow: 0 18px 42px rgba(35, 136, 255, .36);
+    }
+    .modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: end center; padding: 14px; background: rgba(17,24,32,.45); backdrop-filter: blur(12px); }
+    .modal[hidden], [hidden] { display: none !important; }
+    .modal-panel { width: min(100%, 720px); max-height: 88dvh; overflow: auto; padding: 14px; display: grid; gap: 12px; box-shadow: 0 22px 60px rgba(0,0,0,.24); }
+    .modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .amount-display {
+      display: grid;
+      gap: 4px;
+      justify-items: center;
+      border-radius: 24px;
+      padding: 18px 14px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 82% 0%, rgba(114, 72, 255, .66), transparent 34%),
+        linear-gradient(135deg, #07152b, #123b82 72%, #2388ff);
+    }
+    .amount-display span { color: rgba(255,255,255,.70); font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    .amount-display strong { font-size: 44px; line-height: 1; letter-spacing: 0; max-width: 100%; overflow-wrap: anywhere; }
+    .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .numkey {
+      min-height: 54px;
+      border-radius: 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 22px;
+      font-weight: 950;
+    }
+    .numkey.action { color: var(--accent); background: var(--accent-soft); }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .category-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .category-btn { min-height: 54px; border-radius: 8px; border: 1px solid var(--line); background: var(--field); font-weight: 900; color: var(--text); }
+    .category-btn.active { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+    .card-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .card-actions .quiet,
+    .card-actions .secondary,
+    .card-actions .danger { width: 100%; }
+    .inline-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .toast { position: fixed; left: 50%; bottom: calc(142px + env(safe-area-inset-bottom)); transform: translate(-50%, 12px); z-index: 80; max-width: calc(100% - 28px); border-radius: 8px; background: var(--text); color: var(--bg); padding: 10px 12px; font-size: 13px; font-weight: 800; opacity: 0; pointer-events: none; transition: .2s; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @media (max-width: 680px) {
+      h1 { font-size: 30px; }
+      .grid, .stats, .chart-wrap { grid-template-columns: 1fr; }
+      .quick-grid, .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .balance strong { font-size: 36px; }
+      .donut { margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="top">
+      <div class="head">
+        <div class="brand">
+          <div class="brand-logo" aria-hidden="true"><span class="finora-mark"><i></i></span></div>
+          <div class="brand-copy">
+            <b>управляй. расти. достигай.</b>
+            <h1>Finora</h1>
+            <p class="meta" id="headlineMeta">Личный финансовый навигатор для контроля, роста и целей.</p>
+          </div>
+        </div>
+        <div class="head-actions">
+          <button class="icon-btn" id="privacyBtn" title="Скрыть суммы" type="button">◉</button>
+          <button class="icon-btn" id="exportBtn" title="Экспорт данных" type="button">↓</button>
+        </div>
+      </div>
+    </section>
+    <section id="screen"></section>
+  </main>
+
+  <button class="fab" id="quickAddBtn" type="button" title="Добавить расход">+</button>
+  <nav class="bottom-nav" id="bottomNav"></nav>
+
+  <section class="modal" id="transactionModal" hidden>
+    <form class="modal-panel" id="transactionForm">
+      <div class="modal-head">
+        <div>
+          <h2>Операция</h2>
+          <p class="meta">Для расхода достаточно суммы и категории.</p>
+        </div>
+        <button class="quiet" data-close-modal type="button">Закрыть</button>
+      </div>
+      <div class="subtabs">
+        <button class="subtab active" data-tx-type="expense" type="button">Расход</button>
+        <button class="subtab" data-tx-type="income" type="button">Доход</button>
+        <button class="subtab" data-tx-type="transfer" type="button">Перевод</button>
+      </div>
+      <div class="amount-display">
+        <span id="txAmountMode">Расход</span>
+        <strong id="txAmountDisplay">0 ₽</strong>
+      </div>
+      <input class="sr-only" id="txAmount" inputmode="decimal" required>
+      <div class="numpad" id="numpad">
+        <button class="numkey" data-key="1" type="button">1</button>
+        <button class="numkey" data-key="2" type="button">2</button>
+        <button class="numkey" data-key="3" type="button">3</button>
+        <button class="numkey" data-key="4" type="button">4</button>
+        <button class="numkey" data-key="5" type="button">5</button>
+        <button class="numkey" data-key="6" type="button">6</button>
+        <button class="numkey" data-key="7" type="button">7</button>
+        <button class="numkey" data-key="8" type="button">8</button>
+        <button class="numkey" data-key="9" type="button">9</button>
+        <button class="numkey action" data-key="back" type="button">⌫</button>
+        <button class="numkey" data-key="0" type="button">0</button>
+        <button class="numkey action" data-key="clear" type="button">C</button>
+      </div>
+      <div class="grid">
+        <label>Дата<input id="txDate" type="date" required></label>
+        <label>Счет<select id="txAccount"></select></label>
+      </div>
+      <div class="grid">
+        <span></span>
+        <label id="toAccountLabel" hidden>На счет<select id="txToAccount"></select></label>
+      </div>
+      <div id="categoryBlock">
+        <label>Категория<select id="txCategory"></select></label>
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+      <label>Комментарий<input id="txNote" placeholder="Например: кофе, зарплата, аренда"></label>
+      <button class="primary" type="submit">Сохранить</button>
+    </form>
+  </section>
+
+  <section class="modal" id="accountModal" hidden>
+    <form class="modal-panel" id="accountForm">
+      <div class="modal-head">
+        <div>
+          <h2>Новый счет</h2>
+          <p class="meta">Карта, наличные, копилка, долг или инвестиции.</p>
+        </div>
+        <button class="quiet" data-close-modal type="button">Закрыть</button>
+      </div>
+      <div class="grid">
+        <label>Название<input id="accountName" required placeholder="Например: Альфа"></label>
+        <label>Баланс<input id="accountBalance" inputmode="decimal" required placeholder="0"></label>
+      </div>
+      <div class="grid">
+        <label>Тип<select id="accountKind"><option>Карта</option><option>Наличные</option><option>Копилка</option><option>Долг</option><option>Инвестиции</option></select></label>
+        <label>Цвет<select id="accountColor"><option value="#167780">Бирюзовый</option><option value="#f5b72f">Желтый</option><option value="#4d9de0">Синий</option><option value="#8e7cc3">Фиолетовый</option><option value="#b94444">Красный</option></select></label>
+      </div>
+      <button class="primary" type="submit">Добавить счет</button>
+    </form>
+  </section>
+
+  <section class="modal" id="goalModal" hidden>
+    <form class="modal-panel" id="goalForm">
+      <div class="modal-head">
+        <div>
+          <h2>Новая цель</h2>
+          <p class="meta">Копилка, налог, подушка, отпуск или крупная покупка.</p>
+        </div>
+        <button class="quiet" data-close-modal type="button">Закрыть</button>
+      </div>
+      <div class="grid">
+        <label>Название<input id="goalName" required placeholder="Например: Подушка"></label>
+        <label>Цель<input id="goalTarget" inputmode="decimal" required placeholder="300000"></label>
+      </div>
+      <label>Уже накоплено<input id="goalCurrent" inputmode="decimal" placeholder="0"></label>
+      <button class="primary" type="submit">Добавить цель</button>
+    </form>
+  </section>
+
+  <section class="modal" id="debtModal" hidden>
+    <form class="modal-panel" id="debtForm">
+      <div class="modal-head">
+        <div>
+          <h2>Новый долг</h2>
+          <p class="meta">Отдельно учитывай, кому должен ты и кто должен тебе.</p>
+        </div>
+        <button class="quiet" data-close-modal type="button">Закрыть</button>
+      </div>
+      <div class="grid">
+        <label>Кто<input id="debtName" required placeholder="Имя или описание"></label>
+        <label>Сумма<input id="debtAmount" inputmode="decimal" required placeholder="10000"></label>
+      </div>
+      <div class="grid">
+        <label>Тип<select id="debtType"><option value="owedByMe">Я должен</option><option value="owedToMe">Мне должны</option></select></label>
+        <label>Дата возврата<input id="debtDue" type="date"></label>
+      </div>
+      <button class="primary" type="submit">Добавить долг</button>
+    </form>
+  </section>
+
+  <section class="modal" id="recurringModal" hidden>
+    <form class="modal-panel" id="recurringForm">
+      <div class="modal-head">
+        <div>
+          <h2>Регулярный платеж</h2>
+          <p class="meta">Аренда, связь, подписки и другие повторяющиеся расходы.</p>
+        </div>
+        <button class="quiet" data-close-modal type="button">Закрыть</button>
+      </div>
+      <div class="grid">
+        <label>Название<input id="recurringName" required placeholder="Например: Связь"></label>
+        <label>Сумма<input id="recurringAmount" inputmode="decimal" required placeholder="1300"></label>
+      </div>
+      <div class="grid">
+        <label>Категория<select id="recurringCategory"></select></label>
+        <label>День месяца<input id="recurringDay" type="number" min="1" max="31" required placeholder="8"></label>
+      </div>
+      <button class="primary" type="submit">Добавить платеж</button>
+    </form>
+  </section>
+
+  <section class="modal" id="budgetModal" hidden>
+    <form class="modal-panel" id="budgetForm">
+      <div class="modal-head">
+        <div>
+          <h2>Бюджет категории</h2>
+          <p class="meta">Задай лимит, чтобы сразу видеть перерасход.</p>
+        </div>
+        <button class="quiet" data-close-modal type="button">Закрыть</button>
+      </div>
+      <div class="grid">
+        <label>Категория<select id="budgetCategory"></select></label>
+        <label>Лимит<input id="budgetLimit" inputmode="decimal" required placeholder="18000"></label>
+      </div>
+      <button class="primary" type="submit">Сохранить бюджет</button>
+    </form>
+  </section>
+
+  <input id="importFile" type="file" accept="application/json" hidden>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STORAGE_KEY = "ravshik.finance.v2";
+    const LEGACY_KEY = "ravshik.finance.v1";
+    const today = () => new Date().toISOString().slice(0, 10);
+    const monthKey = value => String(value || today()).slice(0, 7);
+    const uid = prefix => `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+    const rawMoney = value => `${Math.round(Number(value) || 0).toLocaleString("ru-RU")} ₽`;
+    const money = value => state?.profile?.hideAmounts ? "•••• ₽" : rawMoney(value);
+    const signedMoney = value => `${value > 0 ? "+" : value < 0 ? "-" : ""}${money(Math.abs(value))}`;
+    const byId = id => document.getElementById(id);
+    const categories = {
+      expense: ["Продукты", "Кафе", "Маркетплейсы", "Транспорт", "Дом", "Здоровье", "Развлечения", "Подарки", "Подписки", "Другое"],
+      income: ["Зарплата", "Проект", "Кэшбек", "Подарок", "Возврат", "Другое"]
+    };
+    const icons = {
+      "Продукты": "П", "Кафе": "К", "Маркетплейсы": "М", "Транспорт": "Т", "Дом": "Д", "Здоровье": "З",
+      "Развлечения": "Р", "Подарки": "Пд", "Подписки": "S", "Зарплата": "₽", "Проект": "PR", "Кэшбек": "%", "Возврат": "↩", "Другое": "..."
+    };
+    let state = loadState();
+    let view = "overview";
+    let txType = "expense";
+    let txAmountRaw = "";
+
+    function defaultState() {
+      return {
+        profile: { name: "Finora", monthlyLimit: 120000, hideAmounts: false },
+        accounts: [
+          { id: "a_alfa", name: "Альфа", kind: "Карта", balance: 32831, color: "#b94444", hidden: false },
+          { id: "a_sber", name: "Сбер", kind: "Карта", balance: 3311, color: "#f5b72f", hidden: false },
+          { id: "a_cash", name: "Наличные", kind: "Наличные", balance: 0, color: "#167780", hidden: false }
+        ],
+        transactions: [
+          { id: uid("t"), type: "expense", amount: 11803, accountId: "a_alfa", category: "Маркетплейсы", date: today(), note: "Другой магазин" },
+          { id: uid("t"), type: "expense", amount: 3657, accountId: "a_alfa", category: "Кафе", date: today(), note: "Фудкорт" },
+          { id: uid("t"), type: "income", amount: 50000, accountId: "a_alfa", category: "Зарплата", date: today(), note: "Аванс" }
+        ],
+        recurring: [
+          { id: "r_phone", name: "Связь и интернет", amount: 1300, category: "Подписки", day: 8 },
+          { id: "r_home", name: "Квартира", amount: 42000, category: "Дом", day: 15 }
+        ],
+        budgets: [
+          { id: "b_food", category: "Продукты", limit: 28000 },
+          { id: "b_cafe", category: "Кафе", limit: 12000 },
+          { id: "b_market", category: "Маркетплейсы", limit: 18000 },
+          { id: "b_home", category: "Дом", limit: 50000 }
+        ],
+        goals: [
+          { id: "g_tax", name: "Налог", target: 60000, current: 18000 },
+          { id: "g_safe", name: "Подушка", target: 300000, current: 41500 }
+        ],
+        debts: [
+          { id: "d_1", name: "Крис", type: "owedByMe", amount: 10000, due: "" },
+          { id: "d_2", name: "Вернуть мне", type: "owedToMe", amount: 8500, due: "" }
+        ],
+        quickTemplates: [
+          { name: "Кофе", amount: 250, category: "Кафе" },
+          { name: "Такси", amount: 700, category: "Транспорт" },
+          { name: "Продукты", amount: 1500, category: "Продукты" }
+        ]
+      };
+    }
+    function normalizeState(raw) {
+      const base = defaultState();
+      const data = raw && typeof raw === "object" ? raw : {};
+      return {
+        ...base,
+        ...data,
+        profile: { ...base.profile, ...(data.profile || {}) },
+        accounts: Array.isArray(data.accounts) && data.accounts.length ? data.accounts : base.accounts,
+        transactions: Array.isArray(data.transactions) ? data.transactions : base.transactions,
+        recurring: Array.isArray(data.recurring) ? data.recurring : base.recurring,
+        budgets: Array.isArray(data.budgets) ? data.budgets : base.budgets,
+        goals: Array.isArray(data.goals) ? data.goals : base.goals,
+        debts: Array.isArray(data.debts) ? data.debts : base.debts,
+        quickTemplates: Array.isArray(data.quickTemplates) ? data.quickTemplates : base.quickTemplates
+      };
+    }
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_KEY) || "null");
+        return normalizeState(saved);
+      } catch (_) {
+        return defaultState();
+      }
+    }
+    function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    function activeAccounts() { return state.accounts.filter(item => !item.hidden); }
+    function visibleTransactions() { return [...state.transactions].sort((a, b) => b.date.localeCompare(a.date)); }
+    function periodTransactions() { return state.transactions.filter(item => monthKey(item.date) === monthKey(today())); }
+    function totalBalance() { return activeAccounts().reduce((sum, item) => sum + Number(item.balance || 0), 0); }
+    function monthExpense() { return periodTransactions().filter(item => item.type === "expense").reduce((sum, item) => sum + Number(item.amount || 0), 0); }
+    function monthIncome() { return periodTransactions().filter(item => item.type === "income").reduce((sum, item) => sum + Number(item.amount || 0), 0); }
+    function dailyAvailable() {
+      const limit = Number(state.profile.monthlyLimit || 0);
+      const left = Math.max(limit - monthExpense(), 0);
+      const now = new Date();
+      const last = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+      return Math.round(left / Math.max(last - now.getDate() + 1, 1));
+    }
+    function accountName(id) { return state.accounts.find(item => item.id === id)?.name || "Счет"; }
+    function accountColor(id) { return state.accounts.find(item => item.id === id)?.color || "#2388ff"; }
+    function txCategoryTotals(type = "expense") {
+      const rows = {};
+      periodTransactions().filter(item => item.type === type).forEach(item => rows[item.category] = (rows[item.category] || 0) + Number(item.amount || 0));
+      return Object.entries(rows).sort((a, b) => b[1] - a[1]);
+    }
+    function spentByCategory(category) {
+      return periodTransactions().filter(item => item.type === "expense" && item.category === category).reduce((sum, item) => sum + Number(item.amount || 0), 0);
+    }
+    function progressClass(percent) { return percent >= 95 ? "bad" : percent >= 75 ? "warn" : ""; }
+    function render() {
+      updatePrivacyButton();
+      renderNav();
+      const map = { overview: renderOverview, transactions: renderTransactions, accounts: renderAccounts, more: renderMore };
+      byId("screen").innerHTML = map[view]();
+      bindScreenActions();
+    }
+    function updatePrivacyButton() {
+      if (!byId("privacyBtn")) return;
+      byId("privacyBtn").textContent = state.profile.hideAmounts ? "◌" : "◉";
+      byId("privacyBtn").title = state.profile.hideAmounts ? "Показать суммы" : "Скрыть суммы";
+    }
+    function renderNav() {
+      const tabs = [["overview", "⌂", "Обзор"], ["transactions", "≡", "Операции"], ["accounts", "□", "Счета"], ["more", "•••", "Еще"]];
+      byId("bottomNav").innerHTML = tabs.map(([id, icon, label]) => `<button class="nav-btn ${view === id ? "active" : ""}" data-view="${id}" type="button"><b>${icon}</b><span>${label}</span></button>`).join("");
+    }
+    function renderOverview() {
+      const spent = monthExpense();
+      const income = monthIncome();
+      const limit = Number(state.profile.monthlyLimit || 0);
+      const left = limit ? Math.max(limit - spent, 0) : 0;
+      const top = txCategoryTotals("expense").slice(0, 5);
+      return `
+        <section class="panel hero">
+          <div class="balance">
+            <span class="meta">Итого на счетах</span>
+            <strong>${money(totalBalance())}</strong>
+          </div>
+          <div class="stats">
+            <div class="stat"><b>${money(spent)}</b><span>расходы</span></div>
+            <div class="stat"><b>${money(income)}</b><span>доходы</span></div>
+            <div class="stat"><b>${money(dailyAvailable())}</b><span>в день</span></div>
+          </div>
+          <div class="quick-grid">
+            <button class="quick-action" data-open-tx data-kind="expense" type="button">Расход<span>2 тапа</span></button>
+            <button class="quick-action" data-open-tx data-kind="income" type="button">Доход<span>пополнение</span></button>
+            <button class="quick-action" data-open-tx data-kind="transfer" type="button">Перевод<span>между счетами</span></button>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="section-title"><h2>Бюджет месяца</h2><div class="inline-actions"><button class="quiet" data-open-budget type="button">Лимит</button><span class="pill ${progressClass(limit ? spent / limit * 100 : 0)}">${money(left)} осталось</span></div></div>
+          ${budgetRow("Общий лимит", spent, limit)}
+          <div class="list">${state.budgets.slice(0, 4).map(item => budgetRow(item.category, spentByCategory(item.category), item.limit)).join("")}</div>
+        </section>
+        <section class="panel">
+          <div class="section-title"><h2>Структура расходов</h2><span class="pill">${new Date().toLocaleDateString("ru-RU", { month: "long" })}</span></div>
+          <div class="chart-wrap">
+            <div class="donut"><div class="donut-value">${money(spent)}</div></div>
+            <div class="list">${top.length ? top.map(([name, value]) => categoryRow(name, value, spent)).join("") : `<div class="empty">Расходов за месяц пока нет.</div>`}</div>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="section-title"><h2>Последние операции</h2><button class="quiet" data-view="transactions" type="button">Все</button></div>
+          <div class="list">${visibleTransactions().slice(0, 5).map(transactionRow).join("") || `<div class="empty">Добавь первую операцию.</div>`}</div>
+        </section>
+      `;
+    }
+    function renderTransactions() {
+      return `
+        <section class="panel">
+          <div class="section-title"><h2>Операции</h2><button class="secondary" data-open-tx type="button">Добавить</button></div>
+          <div class="quick-grid">
+            ${state.quickTemplates.map(item => `<button class="quick-action" data-template="${escapeHtml(item.name)}" type="button">${escapeHtml(item.name)}<span>${money(item.amount)}</span></button>`).join("")}
+          </div>
+          <div class="stats">
+            <div class="stat"><b>${money(monthExpense())}</b><span>расходы</span></div>
+            <div class="stat"><b>${money(monthIncome())}</b><span>доходы</span></div>
+            <div class="stat"><b>${signedMoney(monthIncome() - monthExpense())}</b><span>итог</span></div>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="list">${visibleTransactions().map(transactionRow).join("") || `<div class="empty">История пустая.</div>`}</div>
+        </section>
+      `;
+    }
+    function renderAccounts() {
+      return `
+        <section class="panel hero">
+          <div class="section-title"><div><h2>Счета</h2><p class="meta">Общий остаток: ${money(totalBalance())}</p></div><button class="secondary" data-open-account type="button">Добавить</button></div>
+        </section>
+        <section class="panel">
+          <div class="list">${state.accounts.map(accountRow).join("")}</div>
+        </section>
+      `;
+    }
+    function renderMore() {
+      return `
+        <section class="panel">
+          <div class="section-title"><h2>Цели</h2><button class="quiet" data-add-goal type="button">Добавить</button></div>
+          <div class="list">${state.goals.map(goalRow).join("")}</div>
+        </section>
+        <section class="panel">
+          <div class="section-title"><h2>Долги</h2><button class="quiet" data-add-debt type="button">Добавить</button></div>
+          <div class="list">${state.debts.map(debtRow).join("")}</div>
+        </section>
+        <section class="panel">
+          <div class="section-title"><h2>Регулярные платежи</h2><button class="quiet" data-add-recurring type="button">Добавить</button></div>
+          <div class="list">${state.recurring.map(recurringRow).join("")}</div>
+        </section>
+        <form class="panel" id="settingsForm">
+          <div><h2>Настройки</h2><p class="meta">Данные хранятся локально. Можно экспортировать и импортировать резервную копию.</p></div>
+          <div class="card row">
+            <div class="mark">◉</div>
+            <div><div class="name">Скрытие сумм</div><p class="meta">${state.profile.hideAmounts ? "Суммы скрыты на всех экранах" : "Суммы видны"}</p></div>
+            <button class="secondary" id="privacySettingsBtn" type="button">${state.profile.hideAmounts ? "Показать" : "Скрыть"}</button>
+          </div>
+          <div class="grid">
+            <label>Имя профиля<input id="profileName" value="${escapeHtml(state.profile.name)}"></label>
+            <label>Лимит на месяц<input id="monthlyLimit" inputmode="decimal" value="${state.profile.monthlyLimit}"></label>
+          </div>
+          <button class="primary" type="submit">Сохранить настройки</button>
+          <button class="secondary" id="importBtn" type="button">Импортировать JSON</button>
+          <button class="danger" id="resetDemoBtn" type="button">Сбросить демо-данные</button>
+        </form>
+      `;
+    }
+    function budgetRow(name, spent, limit) {
+      const percent = limit ? Math.min(Math.round(spent / limit * 100), 100) : 0;
+      const cls = progressClass(percent);
+      return `<article class="card">
+        <div class="section-title"><div><div class="name">${escapeHtml(name)}</div><p class="meta">${money(spent)} из ${money(limit)}</p></div><span class="pill ${cls}">${percent}%</span></div>
+        <div class="progress ${cls}" style="--value:${percent}%"><span></span></div>
+      </article>`;
+    }
+    function categoryRow(name, value, total) {
+      const percent = total ? Math.round(value / total * 100) : 0;
+      return `<article class="card row"><div class="mark">${icons[name] || "₽"}</div><div><div class="name">${escapeHtml(name)}</div><p class="meta">${percent}% от расходов</p></div><div class="amount">${money(value)}</div></article>`;
+    }
+    function transactionRow(item) {
+      const isExpense = item.type === "expense";
+      const isTransfer = item.type === "transfer";
+      const title = isTransfer ? `${accountName(item.accountId)} → ${accountName(item.toAccountId)}` : (item.note || item.category);
+      const meta = isTransfer ? `Перевод · ${formatDate(item.date)}` : `${item.category} · ${accountName(item.accountId)} · ${formatDate(item.date)}`;
+      const amountClass = isExpense ? "expense" : item.type === "income" ? "income" : "";
+      return `<article class="card row">
+        <div class="mark" style="background:${accountColor(item.accountId)}22;color:${accountColor(item.accountId)}">${isTransfer ? "→" : icons[item.category] || "₽"}</div>
+        <div><div class="name">${escapeHtml(title)}</div><p class="meta">${escapeHtml(meta)}</p></div>
+        <div class="amount ${amountClass}">${isTransfer ? money(item.amount) : signedMoney(isExpense ? -item.amount : item.amount)}</div>
+      </article>`;
+    }
+    function accountRow(item) {
+      return `<article class="card">
+        <div class="row"><div class="mark" style="background:${item.color}22;color:${item.color}">${escapeHtml(item.kind.slice(0, 1))}</div>
+        <div><div class="name">${escapeHtml(item.name)}</div><p class="meta">${escapeHtml(item.kind)}${item.hidden ? " · скрыт из итога" : ""}</p></div>
+        <div class="amount">${money(item.balance)}</div></div>
+        <div class="card-actions"><button class="secondary" data-toggle-account="${item.id}" type="button">${item.hidden ? "Показать в итоге" : "Скрыть из итога"}</button><button class="quiet" data-delete-account="${item.id}" type="button">Удалить</button></div>
+      </article>`;
+    }
+    function goalRow(item) {
+      const percent = item.target ? Math.min(Math.round(item.current / item.target * 100), 100) : 0;
+      return `<article class="card">
+        <div class="section-title"><div><div class="name">${escapeHtml(item.name)}</div><p class="meta">${money(item.current)} из ${money(item.target)}</p></div><span class="pill ok">${percent}%</span></div>
+        <div class="progress" style="--value:${percent}%"><span></span></div>
+        <div class="card-actions"><button class="secondary" data-fund-goal="${item.id}" type="button">Пополнить</button><button class="quiet" data-complete-goal="${item.id}" type="button">Завершить</button></div>
+      </article>`;
+    }
+    function debtRow(item) {
+      const label = item.type === "owedToMe" ? "мне должны" : "я должен";
+      return `<article class="card">
+        <div class="row"><div class="mark">${item.type === "owedToMe" ? "↙" : "↗"}</div><div><div class="name">${escapeHtml(item.name)}</div><p class="meta">${label}${item.due ? ` · до ${formatDate(item.due)}` : ""}</p></div><div class="amount ${item.type === "owedToMe" ? "income" : "expense"}">${money(item.amount)}</div></div>
+        <div class="card-actions"><button class="secondary" data-settle-debt="${item.id}" type="button">Закрыть долг</button><button class="quiet" data-remove-debt="${item.id}" type="button">Удалить</button></div>
+      </article>`;
+    }
+    function recurringRow(item) {
+      return `<article class="card">
+        <div class="row"><div class="mark">${icons[item.category] || "₽"}</div><div><div class="name">${escapeHtml(item.name)}</div><p class="meta">${escapeHtml(item.category)}, ${item.day} числа</p></div><div class="amount expense">${money(item.amount)}</div></div>
+        <div class="card-actions"><button class="secondary" data-pay-recurring="${item.id}" type="button">Оплатить</button><button class="quiet" data-remove-recurring="${item.id}" type="button">Удалить</button></div>
+      </article>`;
+    }
+    function bindScreenActions() {
+      document.querySelectorAll("[data-view]").forEach(btn => btn.addEventListener("click", () => { view = btn.dataset.view; render(); }));
+      document.querySelectorAll("[data-open-tx]").forEach(btn => btn.addEventListener("click", () => openTransactionModal(btn.dataset.kind || "expense")));
+      document.querySelector("[data-open-account]")?.addEventListener("click", openAccountModal);
+      document.querySelector("[data-open-budget]")?.addEventListener("click", openBudgetModal);
+      document.querySelector("[data-add-debt]")?.addEventListener("click", openDebtModal);
+      document.querySelectorAll("[data-template]").forEach(btn => btn.addEventListener("click", () => applyQuickTemplate(btn.dataset.template)));
+      document.querySelectorAll("[data-toggle-account]").forEach(btn => btn.addEventListener("click", () => toggleAccount(btn.dataset.toggleAccount)));
+      document.querySelectorAll("[data-delete-account]").forEach(btn => btn.addEventListener("click", () => deleteAccount(btn.dataset.deleteAccount)));
+      document.querySelectorAll("[data-fund-goal]").forEach(btn => btn.addEventListener("click", () => fundGoal(btn.dataset.fundGoal)));
+      document.querySelectorAll("[data-complete-goal]").forEach(btn => btn.addEventListener("click", () => removeGoal(btn.dataset.completeGoal)));
+      document.querySelectorAll("[data-settle-debt]").forEach(btn => btn.addEventListener("click", () => settleDebt(btn.dataset.settleDebt)));
+      document.querySelectorAll("[data-remove-debt]").forEach(btn => btn.addEventListener("click", () => removeDebt(btn.dataset.removeDebt)));
+      document.querySelectorAll("[data-pay-recurring]").forEach(btn => btn.addEventListener("click", () => payRecurring(btn.dataset.payRecurring)));
+      document.querySelectorAll("[data-remove-recurring]").forEach(btn => btn.addEventListener("click", () => removeRecurring(btn.dataset.removeRecurring)));
+      byId("settingsForm")?.addEventListener("submit", event => {
+        event.preventDefault();
+        state.profile.name = byId("profileName").value.trim() || "Finora";
+        state.profile.monthlyLimit = Number(byId("monthlyLimit").value || 0);
+        saveState(); showToast("Настройки сохранены"); render();
+      });
+      byId("importBtn")?.addEventListener("click", () => byId("importFile").click());
+      byId("privacySettingsBtn")?.addEventListener("click", togglePrivacy);
+      byId("resetDemoBtn")?.addEventListener("click", () => {
+        if (!confirm("Сбросить локальные данные и вернуть демо-набор?")) return;
+        resetDemoData();
+      });
+      document.querySelector("[data-add-recurring]")?.addEventListener("click", openRecurringModal);
+      document.querySelector("[data-add-goal]")?.addEventListener("click", openGoalModal);
+    }
+    function openTransactionModal(kind = "expense") {
+      txType = kind;
+      txAmountRaw = "";
+      byId("transactionModal").hidden = false;
+      byId("txDate").value = today();
+      fillTransactionSelects();
+      updateAmountDisplay();
+    }
+    function openAccountModal() { byId("accountModal").hidden = false; }
+    function openGoalModal() { byId("goalModal").hidden = false; }
+    function openDebtModal() { byId("debtModal").hidden = false; }
+    function openRecurringModal() {
+      byId("recurringCategory").innerHTML = categories.expense.map(item => `<option>${item}</option>`).join("");
+      byId("recurringModal").hidden = false;
+    }
+    function openBudgetModal() {
+      byId("budgetCategory").innerHTML = categories.expense.map(item => `<option>${item}</option>`).join("");
+      byId("budgetModal").hidden = false;
+    }
+    function fillTransactionSelects() {
+      const accountOptions = activeAccounts().map(item => `<option value="${item.id}">${escapeHtml(item.name)}</option>`).join("");
+      byId("txAccount").innerHTML = accountOptions;
+      byId("txToAccount").innerHTML = accountOptions;
+      const currentCategories = categories[txType] || [];
+      byId("txCategory").innerHTML = currentCategories.map(item => `<option>${item}</option>`).join("");
+      byId("categoryGrid").innerHTML = currentCategories.slice(0, 9).map((item, index) => `<button class="category-btn ${index === 0 ? "active" : ""}" data-category="${escapeHtml(item)}" type="button">${icons[item] || "₽"} ${escapeHtml(item)}</button>`).join("");
+      byId("categoryBlock").hidden = txType === "transfer";
+      byId("toAccountLabel").hidden = txType !== "transfer";
+      document.querySelectorAll("[data-tx-type]").forEach(btn => btn.classList.toggle("active", btn.dataset.txType === txType));
+      updateAmountDisplay();
+    }
+    function applyQuickTemplate(name) {
+      const template = state.quickTemplates.find(item => item.name === name);
+      if (!template) return;
+      openTransactionModal("expense");
+      txAmountRaw = String(template.amount);
+      byId("txAmount").value = txAmountRaw;
+      byId("txCategory").value = template.category;
+      byId("txNote").value = template.name;
+      markCategoryButton(template.category);
+      updateAmountDisplay();
+    }
+    function updateAmountDisplay() {
+      const value = Number(txAmountRaw || 0);
+      const labels = { expense: "Расход", income: "Доход", transfer: "Перевод" };
+      byId("txAmount").value = txAmountRaw;
+      byId("txAmountDisplay").textContent = rawMoney(value);
+      byId("txAmountMode").textContent = labels[txType] || "Операция";
+    }
+    function pressNumKey(key) {
+      if (key === "clear") txAmountRaw = "";
+      else if (key === "back") txAmountRaw = txAmountRaw.slice(0, -1);
+      else if (/^\d$/.test(key)) {
+        txAmountRaw = (txAmountRaw + key).replace(/^0+(?=\d)/, "").slice(0, 9);
+      }
+      updateAmountDisplay();
+    }
+    function markCategoryButton(category) {
+      document.querySelectorAll("[data-category]").forEach(btn => btn.classList.toggle("active", btn.dataset.category === category));
+    }
+    function addTransaction(event) {
+      event.preventDefault();
+      const amount = Math.abs(Number(String(byId("txAmount").value).replace(",", ".")) || 0);
+      if (!amount) return showToast("Укажи сумму операции.");
+      const account = state.accounts.find(item => item.id === byId("txAccount").value);
+      const toAccount = state.accounts.find(item => item.id === byId("txToAccount").value);
+      if (!account) return;
+      if (txType === "expense") account.balance -= amount;
+      if (txType === "income") account.balance += amount;
+      if (txType === "transfer") {
+        if (!toAccount || toAccount.id === account.id) return showToast("Выбери другой счет для перевода.");
+        account.balance -= amount;
+        toAccount.balance += amount;
+      }
+      state.transactions.push({
+        id: uid("t"),
+        type: txType,
+        amount,
+        accountId: account.id,
+        toAccountId: txType === "transfer" ? toAccount.id : "",
+        category: txType === "transfer" ? "Перевод" : byId("txCategory").value,
+        date: byId("txDate").value || today(),
+        note: byId("txNote").value.trim()
+      });
+      saveState();
+      byId("transactionForm").reset();
+      txAmountRaw = "";
+      updateAmountDisplay();
+      byId("transactionModal").hidden = true;
+      showToast("Операция сохранена");
+      render();
+    }
+    function addAccount(event) {
+      event.preventDefault();
+      state.accounts.push({
+        id: uid("a"),
+        name: byId("accountName").value.trim(),
+        kind: byId("accountKind").value,
+        balance: Number(String(byId("accountBalance").value).replace(",", ".")) || 0,
+        color: byId("accountColor").value,
+        hidden: false
+      });
+      saveState();
+      byId("accountForm").reset();
+      byId("accountModal").hidden = true;
+      showToast("Счет добавлен");
+      render();
+    }
+    function addGoal(event) {
+      event.preventDefault();
+      state.goals.push({
+        id: uid("g"),
+        name: byId("goalName").value.trim(),
+        target: Math.abs(Number(String(byId("goalTarget").value).replace(",", ".")) || 0),
+        current: Math.abs(Number(String(byId("goalCurrent").value).replace(",", ".")) || 0)
+      });
+      saveState();
+      byId("goalForm").reset();
+      byId("goalModal").hidden = true;
+      showToast("Цель добавлена");
+      render();
+    }
+    function addDebt(event) {
+      event.preventDefault();
+      state.debts.push({
+        id: uid("d"),
+        name: byId("debtName").value.trim(),
+        type: byId("debtType").value,
+        amount: Math.abs(Number(String(byId("debtAmount").value).replace(",", ".")) || 0),
+        due: byId("debtDue").value
+      });
+      saveState();
+      byId("debtForm").reset();
+      byId("debtModal").hidden = true;
+      showToast("Долг добавлен");
+      render();
+    }
+    function addRecurring(event) {
+      event.preventDefault();
+      state.recurring.push({
+        id: uid("r"),
+        name: byId("recurringName").value.trim(),
+        amount: Math.abs(Number(String(byId("recurringAmount").value).replace(",", ".")) || 0),
+        category: byId("recurringCategory").value,
+        day: Math.min(Math.max(Number(byId("recurringDay").value || 1), 1), 31)
+      });
+      saveState();
+      byId("recurringForm").reset();
+      byId("recurringModal").hidden = true;
+      showToast("Регулярный платеж добавлен");
+      render();
+    }
+    function addBudget(event) {
+      event.preventDefault();
+      const category = byId("budgetCategory").value;
+      const limit = Math.abs(Number(String(byId("budgetLimit").value).replace(",", ".")) || 0);
+      const existing = state.budgets.find(item => item.category === category);
+      if (existing) existing.limit = limit;
+      else state.budgets.push({ id: uid("b"), category, limit });
+      saveState();
+      byId("budgetForm").reset();
+      byId("budgetModal").hidden = true;
+      showToast("Бюджет сохранен");
+      render();
+    }
+    function firstAccount() {
+      return activeAccounts()[0] || state.accounts[0];
+    }
+    function createExpense({ amount, category, note }) {
+      const account = firstAccount();
+      if (!account) return false;
+      account.balance -= amount;
+      state.transactions.push({ id: uid("t"), type: "expense", amount, accountId: account.id, category, date: today(), note });
+      return true;
+    }
+    function payRecurring(id) {
+      const item = state.recurring.find(row => row.id === id);
+      if (!item) return;
+      if (!createExpense({ amount: Number(item.amount || 0), category: item.category, note: item.name })) return showToast("Сначала добавь счет.");
+      saveState();
+      showToast("Платеж добавлен в расходы");
+      render();
+    }
+    function settleDebt(id) {
+      const item = state.debts.find(row => row.id === id);
+      if (!item) return;
+      const account = firstAccount();
+      if (account) {
+        if (item.type === "owedByMe") {
+          account.balance -= Number(item.amount || 0);
+          state.transactions.push({ id: uid("t"), type: "expense", amount: Number(item.amount || 0), accountId: account.id, category: "Другое", date: today(), note: `Закрыт долг: ${item.name}` });
+        } else {
+          account.balance += Number(item.amount || 0);
+          state.transactions.push({ id: uid("t"), type: "income", amount: Number(item.amount || 0), accountId: account.id, category: "Возврат", date: today(), note: `Вернули долг: ${item.name}` });
+        }
+      }
+      state.debts = state.debts.filter(row => row.id !== id);
+      saveState();
+      showToast("Долг закрыт");
+      render();
+    }
+    function fundGoal(id) {
+      const item = state.goals.find(row => row.id === id);
+      if (!item) return;
+      const raw = prompt(`Сколько добавить в цель "${item.name}"?`, "");
+      if (raw === null) return;
+      const amount = Math.abs(Number(String(raw).replace(",", ".")) || 0);
+      if (!amount) return showToast("Сумма не указана.");
+      item.current = Math.min(Number(item.current || 0) + amount, Number(item.target || 0));
+      saveState();
+      showToast("Цель пополнена");
+      render();
+    }
+    function removeGoal(id) {
+      state.goals = state.goals.filter(row => row.id !== id);
+      saveState();
+      showToast("Цель завершена");
+      render();
+    }
+    function removeDebt(id) {
+      state.debts = state.debts.filter(row => row.id !== id);
+      saveState();
+      showToast("Долг удален");
+      render();
+    }
+    function removeRecurring(id) {
+      state.recurring = state.recurring.filter(row => row.id !== id);
+      saveState();
+      showToast("Платеж удален");
+      render();
+    }
+    function togglePrivacy() {
+      state.profile.hideAmounts = !state.profile.hideAmounts;
+      saveState();
+      byId("privacyBtn").textContent = state.profile.hideAmounts ? "◌" : "◉";
+      byId("privacyBtn").title = state.profile.hideAmounts ? "Показать суммы" : "Скрыть суммы";
+      showToast(state.profile.hideAmounts ? "Суммы скрыты" : "Суммы показаны");
+      render();
+    }
+    function toggleAccount(id) {
+      const account = state.accounts.find(row => row.id === id);
+      if (!account) return;
+      account.hidden = !account.hidden;
+      saveState();
+      showToast(account.hidden ? "Счет скрыт из итога" : "Счет снова в итоге");
+      render();
+    }
+    function deleteAccount(id) {
+      if (state.accounts.length <= 1) return showToast("Нужен хотя бы один счет.");
+      const account = state.accounts.find(row => row.id === id);
+      if (!account) return;
+      if (!confirm(`Удалить счет "${account.name}"? Операции останутся в истории.`)) return;
+      state.accounts = state.accounts.filter(row => row.id !== id);
+      saveState();
+      showToast("Счет удален");
+      render();
+    }
+    function resetDemoData() {
+      Object.keys(localStorage).forEach(key => {
+        if (/^(ravshik|finora)\\.finance/i.test(key)) localStorage.removeItem(key);
+      });
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(LEGACY_KEY);
+      state = defaultState();
+      saveState();
+      showToast("Демо-данные сброшены");
+      render();
+    }
+    function exportData() {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `finora-${today()}.json`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+    function importData(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          state = normalizeState(JSON.parse(reader.result));
+          saveState();
+          showToast("Данные импортированы");
+          render();
+        } catch (_) {
+          showToast("Не удалось импортировать JSON.");
+        }
+      };
+      reader.readAsText(file);
+    }
+    function formatDate(value) {
+      return new Date(`${value}T12:00:00`).toLocaleDateString("ru-RU", { day: "2-digit", month: "short" });
+    }
+    function escapeHtml(value) {
+      return String(value || "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#039;" })[char]);
+    }
+    function showToast(text) {
+      const toast = byId("toast");
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 1900);
+    }
+    document.addEventListener("click", event => {
+      if (event.target.closest("[data-close-modal]")) event.target.closest(".modal").hidden = true;
+      if (event.target.classList.contains("modal")) event.target.hidden = true;
+      const typeBtn = event.target.closest("[data-tx-type]");
+      if (typeBtn) { txType = typeBtn.dataset.txType; fillTransactionSelects(); }
+      const numKey = event.target.closest("[data-key]");
+      if (numKey && !byId("transactionModal").hidden) pressNumKey(numKey.dataset.key);
+      const categoryBtn = event.target.closest("[data-category]");
+      if (categoryBtn) {
+        byId("txCategory").value = categoryBtn.dataset.category;
+        markCategoryButton(categoryBtn.dataset.category);
+      }
+    });
+    byId("quickAddBtn").addEventListener("click", () => openTransactionModal("expense"));
+    byId("transactionForm").addEventListener("submit", addTransaction);
+    byId("accountForm").addEventListener("submit", addAccount);
+    byId("goalForm").addEventListener("submit", addGoal);
+    byId("debtForm").addEventListener("submit", addDebt);
+    byId("recurringForm").addEventListener("submit", addRecurring);
+    byId("budgetForm").addEventListener("submit", addBudget);
+    byId("exportBtn").addEventListener("click", exportData);
+    byId("privacyBtn").addEventListener("click", togglePrivacy);
+    byId("importFile").addEventListener("change", event => importData(event.target.files[0]));
+    document.addEventListener("keydown", event => {
+      if (byId("transactionModal").hidden) return;
+      if (/^\d$/.test(event.key)) { event.preventDefault(); pressNumKey(event.key); }
+      if (event.key === "Backspace") { event.preventDefault(); pressNumKey("back"); }
+      if (event.key === "Escape") byId("transactionModal").hidden = true;
+      if (event.key === "Enter") byId("transactionForm").requestSubmit();
+    });
+    document.addEventListener("dblclick", event => event.preventDefault(), { passive: false });
+    document.addEventListener("gesturestart", event => event.preventDefault(), { passive: false });
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+    saveState();
+    render();
+  </script>
+</body>
+</html>
