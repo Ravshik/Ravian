@@ -1,11 +1,11 @@
 {
-  "name": "Finora",
-  "short_name": "Finora",
-  "description": "Личный финансовый навигатор: управляй, расти, достигай.",
+  "name": "Ravian",
+  "short_name": "Ravian",
+  "description": "Личное приложение для видимого развития: пути, прогресс, победы и дневник изменений.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#07152b",
-  "theme_color": "#2388ff",
+  "background_color": "#F8FAFC",
+  "theme_color": "#6C63FF",
   "orientation": "portrait",
   "icons": [
     {
