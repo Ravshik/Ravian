@@ -2,18 +2,21 @@
 set -Eeuo pipefail
 
 REPO_URL="https://github.com/Ravshik/Ravian.git"
-APP_DIR="$HOME/ravian"
-WEB_DIR="/var/www/html"
+APP_DIR="/opt/ravian"
+PROXY_DIR="/opt/loft-hall-proxy"
+SITE_HOST="ravian.77.110.122.36.sslip.io"
 
-echo "== Ravian deploy =="
+echo "== Ravian Docker deploy =="
 
 if ! command -v git >/dev/null 2>&1; then
-  sudo apt update
-  sudo apt install -y git
+  apt update
+  apt install -y git
 fi
 
-sudo apt update
-sudo apt install -y nginx
+if ! command -v docker >/dev/null 2>&1; then
+  echo "ERROR: Docker is required on this host."
+  exit 1
+fi
 
 if [ -d "$APP_DIR/.git" ]; then
   cd "$APP_DIR"
@@ -30,38 +33,25 @@ if ! grep -q "<title>Ravian</title>" "$APP_DIR/index.html"; then
   exit 1
 fi
 
-sudo mkdir -p "$WEB_DIR"
-sudo find "$WEB_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
-sudo cp -a "$APP_DIR"/. "$WEB_DIR"/
-sudo chown -R www-data:www-data "$WEB_DIR"
+docker network inspect loft-hall-internship_default >/dev/null
+docker compose up -d --build
 
-sudo tee /etc/nginx/sites-available/ravian >/dev/null <<'NGINX'
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+if ! grep -q "^${SITE_HOST} " "$PROXY_DIR/Caddyfile"; then
+  cp "$PROXY_DIR/Caddyfile" "$PROXY_DIR/Caddyfile.backup-$(date +%Y%m%d-%H%M%S)"
+  cat >> "$PROXY_DIR/Caddyfile" <<CADDY
 
-    server_name _;
-
-    root /var/www/html;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
+${SITE_HOST} {
+    encode zstd gzip
+    reverse_proxy ravian:80
 }
-NGINX
+CADDY
+fi
 
-sudo rm -f /etc/nginx/sites-enabled/*
-sudo ln -sf /etc/nginx/sites-available/ravian /etc/nginx/sites-enabled/ravian
-sudo nginx -t
-sudo systemctl enable nginx >/dev/null 2>&1 || true
-sudo systemctl restart nginx
-
-sudo ufw allow 80/tcp >/dev/null 2>&1 || true
-sudo ufw reload >/dev/null 2>&1 || true
+docker exec loft-hall-caddy caddy validate --config /etc/caddy/Caddyfile
+docker exec loft-hall-caddy caddy reload --config /etc/caddy/Caddyfile
 
 echo
-curl -I http://127.0.0.1/index.html || true
+docker ps --filter name=ravian --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
 echo
 echo "Ravian is deployed:"
-echo "http://151.244.243.164/index.html?v=ravian-final"
+echo "https://${SITE_HOST}/"

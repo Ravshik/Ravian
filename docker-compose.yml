@@ -1,0 +1,12 @@
+services:
+  ravian:
+    build: .
+    container_name: ravian
+    restart: unless-stopped
+    networks:
+      - loft_app
+
+networks:
+  loft_app:
+    external: true
+    name: loft-hall-internship_default
