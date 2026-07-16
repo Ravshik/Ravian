@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f8fafc">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -13,40 +13,39 @@
     :root {
       color-scheme: light;
       --bg: #f8fafc;
-      --surface: rgba(255, 255, 255, .76);
-      --surface-strong: rgba(255, 255, 255, .92);
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
       --text: #0f172a;
       --muted: #64748b;
-      --soft: #e2e8f0;
-      --line: rgba(15, 23, 42, .10);
+      --line: rgba(15, 23, 42, .11);
       --primary: #6c63ff;
-      --accent: #38bdf8;
+      --primary-soft: rgba(108, 99, 255, .12);
       --success: #22c55e;
-      --warn: #f59e0b;
+      --success-soft: rgba(34, 197, 94, .13);
       --danger: #ef4444;
-      --shadow: 0 24px 70px rgba(15, 23, 42, .10);
-      --radius: 28px;
+      --danger-soft: rgba(239, 68, 68, .12);
+      --warn: #f59e0b;
+      --shadow: 0 18px 48px rgba(15, 23, 42, .08);
+      --radius: 18px;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     [data-theme="dark"] {
       color-scheme: dark;
       --bg: #0f172a;
-      --surface: rgba(20, 31, 54, .70);
-      --surface-strong: rgba(20, 31, 54, .92);
+      --surface: #162033;
+      --surface-soft: #202b40;
       --text: #f8fafc;
       --muted: #94a3b8;
-      --soft: rgba(148, 163, 184, .18);
       --line: rgba(255, 255, 255, .11);
-      --shadow: 0 24px 80px rgba(0, 0, 0, .28);
+      --shadow: 0 18px 52px rgba(0, 0, 0, .24);
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { min-height: 100%; touch-action: manipulation; }
+    html, body { min-height: 100%; }
     body {
       margin: 0;
       background:
-        radial-gradient(circle at 8% 5%, rgba(56, 189, 248, .18), transparent 28%),
-        radial-gradient(circle at 85% 2%, rgba(108, 99, 255, .20), transparent 32%),
-        linear-gradient(180deg, rgba(255,255,255,.72), transparent 240px),
+        radial-gradient(circle at 10% 0%, rgba(108, 99, 255, .14), transparent 28%),
+        radial-gradient(circle at 92% 2%, rgba(56, 189, 248, .12), transparent 30%),
         var(--bg);
       color: var(--text);
       overflow-x: hidden;
@@ -54,364 +53,281 @@
     button, input, select, textarea { font: inherit; color: inherit; }
     button { border: 0; cursor: pointer; }
     h1, h2, h3, p { margin: 0; }
-    h1 { font-size: clamp(38px, 9vw, 74px); line-height: .95; letter-spacing: 0; }
-    h2 { font-size: 27px; line-height: 1.05; letter-spacing: 0; }
-    h3 { font-size: 19px; line-height: 1.15; letter-spacing: 0; }
+    h1 { font-size: 32px; line-height: 1.02; letter-spacing: 0; }
+    h2 { font-size: 22px; line-height: 1.15; letter-spacing: 0; }
+    h3 { font-size: 16px; line-height: 1.2; letter-spacing: 0; }
     .app {
-      width: min(100%, 920px);
+      width: min(100%, 1040px);
       margin: 0 auto;
-      padding: max(18px, env(safe-area-inset-top)) 18px calc(112px + env(safe-area-inset-bottom));
+      padding: max(16px, env(safe-area-inset-top)) 14px calc(102px + env(safe-area-inset-bottom));
     }
     .topbar {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 28px;
-    }
-    .brand {
-      display: flex;
       align-items: center;
       gap: 12px;
+      margin-bottom: 18px;
+    }
+    .brand {
       min-width: 0;
       padding: 0;
-      color: inherit;
-      text-align: left;
       background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-align: left;
     }
     .logo {
-      width: 52px;
-      height: 52px;
-      border-radius: 18px;
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
       display: grid;
       place-items: center;
       color: #fff;
-      background: linear-gradient(145deg, #6c63ff, #38bdf8);
-      box-shadow: 0 18px 45px rgba(108, 99, 255, .22);
-      font-size: 25px;
       font-weight: 900;
+      background: linear-gradient(145deg, var(--primary), #38bdf8);
+      box-shadow: 0 14px 32px rgba(108, 99, 255, .22);
     }
     .brand-title { display: grid; gap: 2px; min-width: 0; }
-    .brand-title b { font-size: 18px; }
-    .brand-title span, .muted { color: var(--muted); }
-    .brand-title span { font-size: 13px; }
-    .icon-btn, .primary, .secondary, .ghost, .choice, .nav-btn {
-      min-height: 46px;
-      border-radius: 16px;
+    .brand-title b { font-size: 17px; }
+    .caption, .muted, .brand-title span { color: var(--muted); }
+    .brand-title span, .caption { font-size: 13px; line-height: 1.35; }
+    .actions { display: flex; gap: 8px; align-items: center; }
+    .icon-btn, .primary, .secondary, .ghost, .nav-btn, .chip, .choice-card, .seg-btn {
+      min-height: 44px;
+      border-radius: 14px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      font-weight: 850;
-      transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      font-weight: 800;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
     .icon-btn {
-      width: 46px;
-      background: var(--surface-strong);
+      width: 44px;
+      background: var(--surface);
       border: 1px solid var(--line);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
-      font-size: 20px;
+      box-shadow: var(--shadow);
+      font-size: 19px;
     }
     .primary {
-      padding: 0 18px;
-      color: #fff;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      box-shadow: 0 16px 42px rgba(108, 99, 255, .22);
-    }
-    .secondary, .ghost, .choice {
       padding: 0 16px;
-      background: var(--surface-strong);
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #38bdf8);
+      box-shadow: 0 14px 36px rgba(108, 99, 255, .22);
+    }
+    .secondary, .ghost, .chip, .seg-btn {
+      padding: 0 14px;
+      background: var(--surface);
       border: 1px solid var(--line);
     }
     .ghost { color: var(--muted); box-shadow: none; }
-    button:active, .path-card:active { transform: scale(.985); }
+    button:active, .goal-row:active, .today-card:active { transform: scale(.985); }
+    .page { display: none; animation: fade .22s ease both; }
+    .page.active { display: block; }
     .hero {
       display: grid;
-      gap: 18px;
-      margin: 8px 0 24px;
+      gap: 14px;
+      margin-bottom: 18px;
     }
-    .hero-copy { display: grid; gap: 12px; }
-    .hero-copy p { max-width: 580px; color: var(--muted); font-size: 18px; line-height: 1.45; }
-    .hero-stats {
+    .hero p { max-width: 620px; font-size: 16px; line-height: 1.45; color: var(--muted); }
+    .stat-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
     }
-    .stat {
-      min-height: 104px;
-      padding: 16px;
-      border-radius: 24px;
-      background: var(--surface);
+    .stat, .panel, .goal-row, .today-card, .empty, .sheet, .summary-box {
+      background: color-mix(in srgb, var(--surface) 94%, transparent);
       border: 1px solid var(--line);
-      box-shadow: 0 18px 50px rgba(15, 23, 42, .07);
-      backdrop-filter: blur(22px) saturate(150%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .stat {
+      min-height: 82px;
+      padding: 14px;
       display: grid;
       align-content: end;
-      gap: 5px;
+      gap: 4px;
     }
-    .stat b { font-size: 30px; line-height: 1; }
-    .stat span, .caption { color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .stat b { font-size: 25px; line-height: 1; }
     .section-head {
       display: flex;
       align-items: end;
       justify-content: space-between;
       gap: 12px;
-      margin: 30px 0 14px;
+      margin: 22px 0 12px;
     }
-    .paths { display: grid; gap: 16px; }
-    .path-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 228px;
-      padding: 22px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, .35);
-      background:
-        linear-gradient(135deg, color-mix(in srgb, var(--card) 28%, rgba(255,255,255,.76)), rgba(255,255,255,.56)),
-        var(--surface);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(24px) saturate(165%);
+    .section-head > div { min-width: 0; display: grid; gap: 4px; }
+    .panel { padding: 16px; display: grid; gap: 14px; margin-bottom: 14px; }
+    .segmented {
+      padding: 4px;
       display: grid;
-      gap: 22px;
-      isolation: isolate;
-    }
-    [data-theme="dark"] .path-card {
-      border-color: rgba(255,255,255,.10);
-      background:
-        linear-gradient(135deg, color-mix(in srgb, var(--card) 36%, rgba(15,23,42,.76)), rgba(15,23,42,.54)),
-        var(--surface);
-    }
-    .path-card:before {
-      content: "";
-      position: absolute;
-      inset: auto -55px -60px auto;
-      width: 190px;
-      height: 190px;
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--card) 38%, transparent);
-      filter: blur(2px);
-      z-index: -1;
-    }
-    .path-top { display: flex; justify-content: space-between; gap: 18px; align-items: start; }
-    .path-name { display: grid; gap: 10px; min-width: 0; }
-    .path-icon {
-      width: 58px;
-      height: 58px;
-      border-radius: 20px;
-      display: grid;
-      place-items: center;
-      background: rgba(255,255,255,.52);
-      border: 1px solid rgba(255,255,255,.45);
-      font-size: 29px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, .08);
-    }
-    [data-theme="dark"] .path-icon { background: rgba(255,255,255,.10); }
-    .metric { display: grid; gap: 6px; }
-    .metric strong {
-      font-size: clamp(44px, 12vw, 72px);
-      line-height: .9;
-      letter-spacing: 0;
-      overflow-wrap: anywhere;
-    }
-    .progress-shell {
-      height: 13px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, .10);
-      overflow: hidden;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.24);
-    }
-    [data-theme="dark"] .progress-shell { background: rgba(255,255,255,.12); }
-    .progress-fill {
-      height: 100%;
-      width: var(--progress);
-      border-radius: inherit;
-      background: linear-gradient(90deg, #fff, color-mix(in srgb, var(--card) 80%, #fff));
-      box-shadow: 0 0 26px color-mix(in srgb, var(--card) 48%, transparent);
-      animation: grow .9s cubic-bezier(.2,.8,.2,1) both;
-    }
-    .path-foot { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
-    .pill {
-      min-height: 34px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.48);
-      border: 1px solid rgba(255,255,255,.42);
-      color: color-mix(in srgb, var(--text) 72%, var(--card));
-      font-weight: 850;
-      font-size: 13px;
-    }
-    [data-theme="dark"] .pill { background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.10); }
-    .empty {
-      min-height: 420px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      gap: 18px;
-      padding: 34px;
-      border-radius: var(--radius);
-      background: var(--surface);
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px;
+      border-radius: 16px;
+      background: var(--surface-soft);
       border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(24px);
     }
-    .empty-inner { display: grid; gap: 16px; max-width: 460px; justify-items: center; }
-    .empty .big { font-size: 74px; }
-    .page { display: none; animation: fade .28s ease both; }
-    .page.active { display: block; }
-    .sheet, .panel {
-      border-radius: var(--radius);
-      background: var(--surface);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(24px) saturate(150%);
-    }
-    .panel { padding: 20px; display: grid; gap: 16px; margin-bottom: 16px; }
-    .form { display: grid; gap: 14px; }
-    label { display: grid; gap: 8px; color: var(--muted); font-size: 13px; font-weight: 850; }
-    input, select, textarea {
-      width: 100%;
-      min-height: 52px;
-      border-radius: 17px;
-      border: 1px solid var(--line);
-      background: var(--surface-strong);
-      padding: 13px 14px;
-      outline: none;
-    }
-    textarea { min-height: 92px; resize: vertical; }
-    input:focus, select:focus, textarea:focus {
-      border-color: color-mix(in srgb, var(--primary) 65%, var(--line));
-      box-shadow: 0 0 0 4px rgba(108, 99, 255, .12);
-    }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .choices, .swatches, .icons { display: flex; gap: 9px; flex-wrap: wrap; }
-    .choice {
-      min-height: 42px;
-      font-size: 14px;
+    .seg-btn {
+      min-height: 38px;
+      border-radius: 12px;
+      background: transparent;
+      border-color: transparent;
       color: var(--muted);
     }
-    .choice.active { color: #fff; background: var(--primary); border-color: var(--primary); }
-    .swatch, .emoji-choice {
-      width: 42px;
-      height: 42px;
-      border-radius: 15px;
-      display: grid;
-      place-items: center;
-      border: 2px solid transparent;
-      background: var(--surface-strong);
-      font-size: 22px;
-    }
-    .swatch.active, .emoji-choice.active {
-      border-color: var(--text);
-      box-shadow: 0 10px 24px rgba(15,23,42,.12);
-    }
-    .detail-hero {
-      padding: 28px;
-      color: #fff;
-      border-radius: 34px;
-      background:
-        radial-gradient(circle at 88% 8%, rgba(255,255,255,.32), transparent 30%),
-        linear-gradient(135deg, var(--card), color-mix(in srgb, var(--card) 48%, #0f172a));
-      box-shadow: 0 28px 75px color-mix(in srgb, var(--card) 30%, transparent);
-      display: grid;
-      gap: 22px;
-      margin-bottom: 18px;
-    }
-    .detail-hero .muted, .detail-hero .caption { color: rgba(255,255,255,.74); }
-    .detail-number {
-      font-size: clamp(56px, 16vw, 104px);
-      line-height: .88;
-      font-weight: 900;
-      letter-spacing: 0;
-    }
-    .timeline { display: grid; gap: 12px; }
-    .moment {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 12px;
-      align-items: start;
+    .seg-btn.active { color: var(--text); background: var(--surface); border-color: var(--line); }
+    .goal-list, .today-list, .stats-list { display: grid; gap: 10px; }
+    .goal-row {
+      width: 100%;
+      min-height: 112px;
       padding: 14px;
-      border-radius: 22px;
-      background: var(--surface-strong);
-      border: 1px solid var(--line);
+      text-align: left;
+      color: inherit;
+      display: grid;
+      gap: 10px;
+      background:
+        linear-gradient(90deg, color-mix(in srgb, var(--goal-color) 10%, transparent), transparent 64%),
+        var(--surface);
     }
-    .dot {
-      width: 34px;
-      height: 34px;
+    .goal-main {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: start;
+    }
+    .goal-icon {
+      width: 38px;
+      height: 38px;
       border-radius: 13px;
       display: grid;
       place-items: center;
-      color: #fff;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      font-weight: 900;
-      font-size: 13px;
+      background: color-mix(in srgb, var(--goal-color) 16%, var(--surface));
+      border: 1px solid color-mix(in srgb, var(--goal-color) 35%, var(--line));
+      font-size: 21px;
     }
-    .photo-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .photo {
-      min-height: 156px;
-      border-radius: 24px;
+    .goal-title { display: grid; gap: 4px; min-width: 0; }
+    .goal-title h3 { overflow-wrap: anywhere; }
+    .goal-meta { color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .status-pill {
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: 999px;
       border: 1px solid var(--line);
-      background:
-        linear-gradient(135deg, rgba(255,255,255,.66), rgba(255,255,255,.22)),
-        linear-gradient(145deg, color-mix(in srgb, var(--card) 22%, transparent), transparent);
+      background: var(--surface-soft);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+    .status-success { color: #15803d; background: var(--success-soft); border-color: rgba(34, 197, 94, .30); }
+    .status-fail { color: #b91c1c; background: var(--danger-soft); border-color: rgba(239, 68, 68, .28); }
+    .day-dots { display: grid; grid-template-columns: repeat(14, 1fr); gap: 5px; }
+    .day-dot {
+      height: 18px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: #cbd5e1;
+    }
+    .day-dot.success { background: var(--success); border-color: var(--success); }
+    .day-dot.fail { background: var(--danger); border-color: var(--danger); }
+    .day-dot.empty { background: var(--surface-soft); }
+    .progress-line { display: grid; gap: 7px; }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+    }
+    .bar {
+      height: 9px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .bar > span {
+      display: block;
+      height: 100%;
+      width: var(--progress);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), #38bdf8);
+    }
+    .measure-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .measure-cell {
+      min-height: 56px;
+      padding: 10px;
+      border-radius: 14px;
+      background: var(--surface-soft);
+      display: grid;
+      align-content: center;
+      gap: 2px;
+    }
+    .measure-cell b { font-size: 15px; overflow-wrap: anywhere; }
+    .quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .quick-actions .secondary, .quick-actions .ghost { min-height: 42px; padding: 0 10px; }
+    .today-card {
+      padding: 14px;
+      display: grid;
+      gap: 12px;
+    }
+    .today-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+    .calendar-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); }
+    .calendar-grid {
+      min-width: 760px;
+      display: grid;
+      grid-template-columns: 190px repeat(var(--days), 34px);
+    }
+    .cal-cell {
+      min-height: 34px;
+      padding: 5px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
       display: grid;
       place-items: center;
-      text-align: center;
-      padding: 18px;
-      color: var(--muted);
+      font-size: 12px;
+      background: var(--surface);
+    }
+    .cal-goal {
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      place-items: center start;
+      padding-left: 10px;
+      font-weight: 800;
+      background: var(--surface);
+      white-space: nowrap;
       overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; }
-    .photo-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .photo-card {
-      overflow: hidden;
-      border-radius: 24px;
-      background: var(--surface-strong);
-      border: 1px solid var(--line);
-    }
-    .photo-card img {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      display: block;
-      object-fit: cover;
-    }
-    .photo-card div { padding: 12px; display: grid; gap: 4px; }
-    .medals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .medal {
-      min-height: 128px;
-      padding: 18px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(245,158,11,.18), rgba(255,255,255,.58));
-      border: 1px solid rgba(245,158,11,.24);
-      display: grid;
-      align-content: end;
-      gap: 8px;
-    }
-    [data-theme="dark"] .medal { background: linear-gradient(135deg, rgba(245,158,11,.22), rgba(255,255,255,.06)); }
+    .cal-head { font-weight: 850; color: var(--muted); background: var(--surface-soft); }
+    .cal-mark { width: 18px; height: 18px; border-radius: 7px; border: 1px solid var(--line); background: var(--surface-soft); }
+    .cal-mark.success { background: var(--success); border-color: var(--success); }
+    .cal-mark.fail { background: var(--danger); border-color: var(--danger); }
+    .cal-mark.value { background: var(--primary-soft); border-color: rgba(108, 99, 255, .30); color: var(--primary); width: auto; min-width: 22px; padding: 0 4px; font-weight: 850; }
     .tabs {
       position: fixed;
       left: 50%;
-      bottom: max(14px, env(safe-area-inset-bottom));
+      bottom: max(12px, env(safe-area-inset-bottom));
       transform: translateX(-50%);
-      width: min(calc(100% - 24px), 560px);
-      min-height: 72px;
-      border-radius: 26px;
-      padding: 8px;
+      width: min(calc(100% - 20px), 580px);
+      min-height: 70px;
+      padding: 7px;
+      border-radius: 23px;
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      border: 1px solid var(--line);
+      box-shadow: 0 18px 58px rgba(15, 23, 42, .15);
+      backdrop-filter: blur(22px);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      background: rgba(255,255,255,.74);
-      border: 1px solid rgba(255,255,255,.64);
-      box-shadow: 0 18px 60px rgba(15,23,42,.16);
-      backdrop-filter: blur(28px) saturate(170%);
+      gap: 5px;
       z-index: 20;
-    }
-    [data-theme="dark"] .tabs {
-      background: rgba(15,23,42,.78);
-      border-color: rgba(255,255,255,.10);
     }
     .nav-btn {
       min-height: 56px;
@@ -422,123 +338,247 @@
       font-size: 18px;
     }
     .nav-btn span { font-size: 11px; font-weight: 850; }
-    .nav-btn.active { color: var(--text); background: var(--surface-strong); box-shadow: 0 10px 24px rgba(15,23,42,.08); }
+    .nav-btn.active { color: var(--text); background: var(--surface-soft); }
     .modal {
       position: fixed;
       inset: 0;
-      z-index: 40;
+      z-index: 50;
       display: grid;
       align-items: end;
-      background: rgba(15,23,42,.34);
-      padding: 12px;
+      background: rgba(15, 23, 42, .38);
+      padding: 10px;
     }
     .modal[hidden] { display: none; }
     .sheet {
-      width: min(100%, 760px);
-      max-height: min(86vh, 820px);
+      width: min(100%, 780px);
+      max-height: min(90vh, 860px);
       overflow: auto;
       margin: 0 auto;
-      padding: 18px;
+      padding: 16px;
     }
-    .sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .sheet-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .form { display: grid; gap: 14px; }
+    label { display: grid; gap: 7px; color: var(--muted); font-size: 13px; font-weight: 850; }
+    input, select, textarea {
+      width: 100%;
+      min-height: 50px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      padding: 12px 13px;
+      outline: none;
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .choice-card {
+      min-height: 132px;
+      padding: 13px;
+      align-items: start;
+      justify-content: start;
+      text-align: left;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      position: relative;
+    }
+    .choice-card strong { font-size: 15px; }
+    .choice-card p { color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .choice-card.active {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, var(--primary-soft), var(--surface));
+      box-shadow: 0 12px 32px rgba(108, 99, 255, .13);
+    }
+    .choice-card.active:after {
+      content: "✓";
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--primary);
+      font-weight: 900;
+    }
+    .selected-note, .summary-box {
+      padding: 13px;
+      border-radius: 16px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      display: grid;
+      gap: 6px;
+    }
+    .swatches, .icons, .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .swatch, .emoji-choice {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      border: 2px solid transparent;
+      background: var(--surface);
+      font-size: 22px;
+    }
+    .swatch.active, .emoji-choice.active { border-color: var(--text); box-shadow: 0 10px 24px rgba(15, 23, 42, .12); }
+    .wizard-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-bottom: 14px; }
+    .step-dot { height: 7px; border-radius: 999px; background: var(--surface-soft); }
+    .step-dot.active { background: var(--primary); }
     .toast {
       position: fixed;
       left: 50%;
-      bottom: 100px;
-      transform: translate(-50%, 18px);
+      bottom: 96px;
+      transform: translate(-50%, 16px);
+      z-index: 80;
       opacity: 0;
       pointer-events: none;
-      z-index: 60;
-      padding: 12px 16px;
+      padding: 12px 15px;
       border-radius: 999px;
       color: #fff;
-      background: rgba(15,23,42,.86);
-      box-shadow: 0 16px 42px rgba(15,23,42,.24);
-      transition: opacity .22s ease, transform .22s ease;
+      background: rgba(15, 23, 42, .9);
       font-weight: 850;
+      transition: opacity .2s ease, transform .2s ease;
     }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
     .hidden { display: none !important; }
     @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-    @keyframes grow { from { width: 0; } to { width: var(--progress); } }
     @media (min-width: 760px) {
-      .app { padding-left: 28px; padding-right: 28px; }
-      .paths { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .path-card.featured { grid-column: 1 / -1; min-height: 280px; }
-      .detail-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: 16px; align-items: start; }
+      .app { padding-left: 24px; padding-right: 24px; }
+      h1 { font-size: 42px; }
+      .dashboard { display: grid; grid-template-columns: 1.05fr .95fr; gap: 14px; align-items: start; }
+      .choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
     @media (max-width: 560px) {
-      .app { padding-left: 14px; padding-right: 14px; }
-      .topbar { margin-bottom: 18px; }
       .brand-title span { display: none; }
-      .hero-stats, .grid-2, .photo-strip, .photo-gallery, .medals { grid-template-columns: 1fr; }
-      .stat { min-height: 84px; }
-      .path-card { min-height: 212px; padding: 18px; }
-      .metric strong { font-size: 48px; }
-      .tabs { width: calc(100% - 16px); border-radius: 22px; }
+      .stat-grid, .grid-2, .grid-3, .quick-actions, .measure-grid { grid-template-columns: 1fr; }
+      .choice-grid { grid-template-columns: 1fr; }
+      .goal-main { grid-template-columns: auto 1fr; }
+      .goal-main .status-pill { grid-column: 1 / -1; justify-self: start; }
+      .day-dots { gap: 4px; }
+      .day-dot { height: 16px; border-radius: 5px; }
+      .tabs { width: calc(100% - 14px); border-radius: 21px; }
     }
   </style>
 </head>
 <body>
   <main class="app">
     <header class="topbar">
-      <button class="brand" type="button" data-page="home" aria-label="Ravian">
+      <button class="brand" type="button" data-page="today" aria-label="Открыть Ravian">
         <span class="logo">R</span>
         <span class="brand-title">
           <b>Ravian</b>
-          <span>Пути личного развития</span>
+          <span>Привычки, отказы и цели</span>
         </span>
       </button>
-      <div style="display:flex;gap:8px">
-        <button class="icon-btn" id="themeBtn" type="button" title="Сменить тему">◐</button>
-        <button class="icon-btn" id="openCreateBtn" type="button" title="Новый путь">+</button>
+      <div class="actions">
+        <button class="icon-btn" id="themeBtn" type="button" aria-label="Сменить тему">◐</button>
+        <button class="icon-btn" id="openCreateBtn" type="button" aria-label="Создать цель">+</button>
       </div>
     </header>
 
-    <section class="page active" id="homePage">
+    <section class="page active" id="todayPage">
       <div class="hero">
-        <div class="hero-copy">
-          <h1>Ты уже изменился.</h1>
-          <p>Ravian показывает не рутину, а то, кем ты становишься. Открой на несколько секунд и увидь свой прогресс.</p>
+        <div>
+          <h1>Сегодня</h1>
+          <p>Отметьте день, добавьте количество или обновите сумму. Ravian считает разные цели по-разному.</p>
         </div>
-        <div class="hero-stats" id="heroStats"></div>
+        <div class="stat-grid" id="todayStats"></div>
+      </div>
+      <div class="dashboard">
+        <section class="panel">
+          <div class="section-head" style="margin:0">
+            <div>
+              <h2>План на день</h2>
+              <p class="caption" id="todayDateLabel"></p>
+            </div>
+            <button class="primary" type="button" data-open-create>Цель</button>
+          </div>
+          <div class="today-list" id="todayList"></div>
+        </section>
+        <section class="panel">
+          <h2>Быстрый обзор</h2>
+          <div id="quickStats" class="stats-list"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="page" id="goalsPage">
+      <div class="hero">
+        <div>
+          <h1>Цели</h1>
+          <p>Компактный список без больших декоративных карточек: серии, последние 14 дней, прогресс и статус сегодня.</p>
+        </div>
       </div>
       <div class="section-head">
         <div>
-          <h2>Твои пути</h2>
-          <p class="caption">Большие числа. Минимум шума. Только движение вперед.</p>
+          <h2>Главный раздел</h2>
+          <p class="caption">Список или календарь выбранного месяца.</p>
         </div>
         <button class="primary" type="button" data-open-create>Создать</button>
       </div>
-      <div id="paths" class="paths"></div>
+      <div class="panel">
+        <div class="segmented" aria-label="Режим отображения целей">
+          <button class="seg-btn active" type="button" data-view-mode="list">Список</button>
+          <button class="seg-btn" type="button" data-view-mode="calendar">Календарь</button>
+        </div>
+        <div id="goalsList" class="goal-list"></div>
+        <div id="calendarView" class="calendar-wrap hidden"></div>
+      </div>
     </section>
 
-    <section class="page" id="detailPage"></section>
-
-    <section class="page" id="victoriesPage">
-      <div class="section-head">
+    <section class="page" id="statsPage">
+      <div class="hero">
         <div>
-          <h1 style="font-size:42px">Коллекция побед</h1>
-          <p class="caption">Завершенные пути не исчезают. Они становятся личной историей.</p>
+          <h1>Статистика</h1>
+          <p>Серии, проценты, суммы, средние значения и динамика по всем типам целей.</p>
         </div>
       </div>
-      <div id="victories" class="paths"></div>
+      <div id="statsContent" class="stats-list"></div>
     </section>
 
     <section class="page" id="settingsPage">
-      <div class="section-head">
+      <div class="hero">
         <div>
-          <h1 style="font-size:42px">Настройки</h1>
-          <p class="caption">Тема, данные и резервная копия.</p>
+          <h1>Настройки</h1>
+          <p>Тема, данные, импорт, экспорт и правила учета.</p>
         </div>
       </div>
       <div class="panel">
         <h2>Оформление</h2>
-        <div class="choices" id="themeChoices">
-          <button class="choice" data-theme-choice="system" type="button">Системная</button>
-          <button class="choice" data-theme-choice="light" type="button">Светлая</button>
-          <button class="choice" data-theme-choice="dark" type="button">Темная</button>
+        <div class="chips">
+          <button class="chip" data-theme-choice="system" type="button">Системная</button>
+          <button class="chip" data-theme-choice="light" type="button">Светлая</button>
+          <button class="chip" data-theme-choice="dark" type="button">Темная</button>
         </div>
+      </div>
+      <div class="panel">
+        <h2>Правила</h2>
+        <div class="grid-2">
+          <label>Первый день недели
+            <select id="weekStartSetting">
+              <option value="monday">Понедельник</option>
+              <option value="sunday">Воскресенье</option>
+            </select>
+          </label>
+          <label>Формат даты
+            <select id="dateFormatSetting">
+              <option value="long">14 июля 2026</option>
+              <option value="short">14.07.2026</option>
+            </select>
+          </label>
+        </div>
+        <label style="display:flex;grid-template-columns:auto 1fr;align-items:center;gap:10px">
+          <input id="confirmFailSetting" type="checkbox" style="width:auto;min-height:auto">
+          Подтверждать установку срыва
+        </label>
+        <label style="display:flex;grid-template-columns:auto 1fr;align-items:center;gap:10px">
+          <input id="showEmptyStatsSetting" type="checkbox" style="width:auto;min-height:auto">
+          Показывать дни без отметки в статистике
+        </label>
       </div>
       <div class="panel">
         <h2>Данные</h2>
@@ -553,117 +593,143 @@
       </div>
       <div class="panel">
         <h2>Полный сброс</h2>
-        <p class="muted">Очищает все пути, победы, фотографии, настройки и старые локальные данные приложения.</p>
+        <p class="muted">Удаляет цели, записи, настройки и резервные данные Ravian на этом устройстве.</p>
         <button class="ghost" id="resetBtn" type="button">Обнулить все данные</button>
       </div>
     </section>
+
+    <section class="page" id="detailPage"></section>
   </main>
 
-  <nav class="tabs" aria-label="Навигация">
-    <button class="nav-btn active" type="button" data-page="home">⌂<span>Пути</span></button>
-    <button class="nav-btn" type="button" data-open-create>＋<span>Новый</span></button>
-    <button class="nav-btn" type="button" data-page="victories">◇<span>Победы</span></button>
-    <button class="nav-btn" type="button" data-page="settings">⚙<span>Еще</span></button>
+  <nav class="tabs" aria-label="Нижняя навигация">
+    <button class="nav-btn active" type="button" data-page="today">◎<span>Сегодня</span></button>
+    <button class="nav-btn" type="button" data-page="goals">☷<span>Цели</span></button>
+    <button class="nav-btn" type="button" data-page="stats">◌<span>Статистика</span></button>
+    <button class="nav-btn" type="button" data-page="settings">⚙<span>Настройки</span></button>
   </nav>
 
   <section class="modal" id="createModal" hidden>
     <div class="sheet">
       <div class="sheet-head">
         <div>
-          <h2>Новый путь</h2>
-          <p class="caption">Один сильный фокус, который будет видно каждый день.</p>
+          <h2>Новая цель</h2>
+          <p class="caption" id="createStepLabel">Шаг 1 из 5</p>
         </div>
-        <button class="icon-btn" type="button" data-close-modal>×</button>
+        <button class="icon-btn" type="button" data-close-modal aria-label="Закрыть">×</button>
       </div>
-      <form class="form" id="pathForm">
-        <label>Название
-          <input id="pathName" required maxlength="34" placeholder="Свобода от курения">
-        </label>
-        <div>
-          <p class="caption" style="margin-bottom:8px">Тип прогресса</p>
-          <div class="choices" id="typeChoices"></div>
-        </div>
-        <div>
-          <p class="caption" style="margin-bottom:8px">Цвет</p>
-          <div class="swatches" id="colorChoices"></div>
-        </div>
-        <div>
-          <p class="caption" style="margin-bottom:8px">Иконка</p>
-          <div class="icons" id="iconChoices"></div>
-        </div>
+      <div class="wizard-steps" id="wizardDots"></div>
+      <form class="form" id="goalForm">
+        <section data-step-panel="1">
+          <div class="form">
+            <label>Название цели
+              <input id="goalName" required maxlength="44" placeholder="Свобода от курения">
+            </label>
+            <button class="secondary" id="suggestTypeBtn" type="button">Подобрать тип автоматически</button>
+            <p class="caption" id="suggestionText"></p>
+            <div class="grid-2">
+              <label>Иконка
+                <input id="goalIconInput" maxlength="4" placeholder="🚭">
+              </label>
+              <label>Короткое описание
+                <input id="goalNote" maxlength="160" placeholder="Почему это важно?">
+              </label>
+            </div>
+          </div>
+        </section>
+        <section data-step-panel="2" hidden>
+          <div class="form">
+            <div>
+              <h2>Как вы хотите отслеживать эту цель?</h2>
+              <p class="caption">Выберите вариант, который лучше всего подходит вашей цели. От этого зависит календарь, статистика и способ добавления результата.</p>
+            </div>
+            <div class="choice-grid" id="trackingChoices"></div>
+            <div class="selected-note" id="selectedTypeNote"></div>
+          </div>
+        </section>
+        <section data-step-panel="3" hidden>
+          <div class="form" id="paramsFields"></div>
+        </section>
+        <section data-step-panel="4" hidden>
+          <div class="form">
+            <div>
+              <p class="caption" style="margin-bottom:8px">Цвет</p>
+              <div class="swatches" id="colorChoices"></div>
+            </div>
+            <div class="grid-2">
+              <label>Дата начала
+                <input id="startDate" type="date" required>
+              </label>
+              <label>Дата завершения
+                <input id="endDate" type="date">
+              </label>
+            </div>
+          </div>
+        </section>
+        <section data-step-panel="5" hidden>
+          <div class="form">
+            <h2>Проверка</h2>
+            <div class="summary-box" id="createSummary"></div>
+          </div>
+        </section>
         <div class="grid-2">
-          <label>Дата начала
-            <input id="startDate" type="date" required>
-          </label>
-          <label>Дата финиша
-            <input id="endDate" type="date">
-          </label>
+          <button class="ghost" id="prevStepBtn" type="button">Назад</button>
+          <button class="primary" id="nextStepBtn" type="button">Дальше</button>
         </div>
-        <div class="grid-2">
-          <label>Текущее значение
-            <input id="currentValue" inputmode="decimal" placeholder="0">
-          </label>
-          <label>Итоговое значение
-            <input id="targetValue" inputmode="decimal" placeholder="100">
-          </label>
-        </div>
-        <label>Единица измерения
-          <input id="unitValue" maxlength="18" placeholder="дней">
-        </label>
-        <label>Заметка
-          <textarea id="pathNote" maxlength="180" placeholder="Почему этот путь важен?"></textarea>
-        </label>
-        <button class="primary" type="submit">Создать путь</button>
       </form>
     </div>
   </section>
 
-  <section class="modal" id="progressModal" hidden>
+  <section class="modal" id="dayModal" hidden>
     <div class="sheet">
       <div class="sheet-head">
         <div>
-          <h2>Обновить путь</h2>
-          <p class="caption" id="progressTitle"></p>
+          <h2 id="dayModalDate">День</h2>
+          <p class="caption" id="dayModalGoal"></p>
         </div>
-        <button class="icon-btn" type="button" data-close-modal>×</button>
+        <button class="icon-btn" type="button" data-close-modal aria-label="Закрыть">×</button>
       </div>
-      <form class="form" id="progressForm">
-        <input type="hidden" id="progressPathId">
-        <label>Новое значение
-          <input id="progressValue" inputmode="decimal" required>
-        </label>
-        <label>Заметка
-          <textarea id="progressNote" maxlength="160" placeholder="Что изменилось сегодня?"></textarea>
-        </label>
-        <label>Фото сейчас
-          <input id="progressPhoto" type="file" accept="image/*">
+      <form class="form" id="dayForm">
+        <input type="hidden" id="dayGoalId">
+        <input type="hidden" id="dayDate">
+        <div id="dayFields"></div>
+        <label>Комментарий
+          <textarea id="dayNote" maxlength="180" placeholder="Был тяжелый день, но удержался"></textarea>
         </label>
         <button class="primary" type="submit">Сохранить</button>
       </form>
     </div>
   </section>
 
-  <section class="modal" id="photoModal" hidden>
+  <section class="modal" id="bulkModal" hidden>
     <div class="sheet">
       <div class="sheet-head">
         <div>
-          <h2>Добавить фото</h2>
-          <p class="caption" id="photoTitle"></p>
+          <h2>Заполнить прошлые дни</h2>
+          <p class="caption" id="bulkGoalName"></p>
         </div>
-        <button class="icon-btn" type="button" data-close-modal>×</button>
+        <button class="icon-btn" type="button" data-close-modal aria-label="Закрыть">×</button>
       </div>
-      <form class="form" id="photoForm">
-        <input type="hidden" id="photoPathId">
-        <label>Дата фото
-          <input id="photoDate" type="date" required>
+      <form class="form" id="bulkForm">
+        <input type="hidden" id="bulkGoalId">
+        <div class="grid-2">
+          <label>Дата начала
+            <input id="bulkStart" type="date" required>
+          </label>
+          <label>Дата окончания
+            <input id="bulkEnd" type="date" required>
+          </label>
+        </div>
+        <label>Статус
+          <select id="bulkStatus">
+            <option value="success">Выполнено</option>
+            <option value="fail">Срыв</option>
+            <option value="empty">Без отметки</option>
+          </select>
         </label>
-        <label>Подпись
-          <textarea id="photoNote" maxlength="180" placeholder="Что видно на этом этапе?"></textarea>
+        <label>Комментарий
+          <input id="bulkNote" maxlength="120" placeholder="Необязательно">
         </label>
-        <label>Фотография
-          <input id="photoFile" type="file" accept="image/*" required>
-        </label>
-        <button class="primary" type="submit">Добавить фото</button>
+        <button class="primary" type="submit">Заполнить</button>
       </form>
     </div>
   </section>
@@ -671,315 +737,663 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const STORAGE_KEY = "ravian.paths.v1";
-    const PREF_KEY = "ravian.preferences.v1";
-    const colors = ["#6C63FF", "#38BDF8", "#22C55E", "#F59E0B", "#EF4444", "#EC4899", "#14B8A6", "#111827"];
-    const icons = ["🚭", "🏃", "📚", "💪", "💰", "⚖️", "🌍", "🎸", "⚡", "🧘"];
-    const types = [
-      { id: "time", label: "Время", unit: "дней" },
-      { id: "count", label: "Количество", unit: "раз" },
-      { id: "money", label: "Финансы", unit: "₽" },
-      { id: "weight", label: "Вес", unit: "кг" },
-      { id: "custom", label: "Свой", unit: "%" }
-    ];
-    const today = () => new Date().toISOString().slice(0, 10);
+    const STORAGE_KEY = "ravian.goals.v2";
+    const OLD_STORAGE_KEY = "ravian.paths.v1";
+    const PREF_KEY = "ravian.preferences.v2";
+    const OLD_PREF_KEY = "ravian.preferences.v1";
+    const colors = ["#6C63FF", "#22C55E", "#38BDF8", "#F59E0B", "#EF4444", "#EC4899", "#14B8A6", "#111827"];
+    const icons = ["🚭", "⚡", "🍔", "💪", "📚", "🏃", "💰", "⚖️", "🧘", "🎯"];
+    const typeInfo = {
+      daily: {
+        title: "Ежедневная отметка",
+        icon: "◎",
+        unit: "дней",
+        hint: "Каждый день отмечайте, получилось выполнить цель или произошел срыв.",
+        example: "Не курить, читать каждый вечер, делать зарядку.",
+        selected: "Каждый день вы будете отмечать результат зеленым или красным цветом. Серия обнулится после срыва, но лучший результат сохранится."
+      },
+      quantity: {
+        title: "Количество",
+        icon: "☷",
+        unit: "повторений",
+        hint: "Записывайте, сколько раз или единиц вы выполнили.",
+        example: "30 отжиманий, 10 000 шагов, 20 страниц.",
+        selected: "Ravian будет суммировать записи, показывать прогресс к общей цели и результат за день."
+      },
+      money: {
+        title: "Деньги",
+        icon: "₽",
+        unit: "₽",
+        hint: "Добавляйте пополнения и списания, чтобы видеть движение к финансовой цели.",
+        example: "Подушка безопасности, отпуск, закрытие долга.",
+        selected: "История будет состоять из операций: пополнение или списание. Прогресс считается по чистой сумме."
+      },
+      measurement: {
+        title: "Измерение",
+        icon: "↕",
+        unit: "кг",
+        hint: "Периодически записывайте меняющееся значение и следите за динамикой.",
+        example: "Вес, талия, время бега, сон.",
+        selected: "Ravian учитывает старт, цель и направление: увеличить или уменьшить показатель."
+      },
+      custom: {
+        title: "Произвольная цель",
+        icon: "◇",
+        unit: "%",
+        hint: "Самостоятельно задайте текущее значение, итоговую цель и единицу измерения.",
+        example: "12 уроков, 8 этапов ремонта, 20 мест.",
+        selected: "Подойдет, когда остальные варианты не описывают цель достаточно точно."
+      }
+    };
     const byId = id => document.getElementById(id);
     const uid = prefix => `${prefix}_${Math.random().toString(36).slice(2, 9)}_${Date.now().toString(36)}`;
-    let selectedType = "time";
-    let selectedColor = colors[0];
-    let selectedIcon = icons[0];
-    let currentPage = "home";
-    let activePathId = null;
     let prefs = loadPrefs();
     let state = loadState();
+    let currentPage = "today";
+    let currentView = "list";
+    let activeGoalId = null;
+    let createStep = 1;
+    let draft = defaultDraft();
 
-    function demoState() {
-      const now = new Date();
-      const daysAgo = days => new Date(now.getTime() - days * 86400000).toISOString().slice(0, 10);
-      const daysPlus = days => new Date(now.getTime() + days * 86400000).toISOString().slice(0, 10);
-      return {
-        paths: [
-          {
-            id: uid("p"), name: "Свобода от курения", type: "time", color: "#6C63FF", icon: "🚭",
-            startDate: daysAgo(127), endDate: daysPlus(17), current: 127, target: 144, unit: "дней",
-            note: "Больше воздуха, больше спокойствия, больше контроля над жизнью.",
-            moments: [
-              { id: uid("m"), date: daysAgo(127), value: 1, note: "Первый день. Главное - начать." },
-              { id: uid("m"), date: daysAgo(67), value: 60, note: "Тело уже помнит новый ритм." },
-              { id: uid("m"), date: today(), value: 127, note: "Я уже другой человек." }
-            ]
-          },
-          {
-            id: uid("p"), name: "Подтягивания", type: "count", color: "#22C55E", icon: "💪",
-            startDate: daysAgo(42), endDate: "", current: 42, target: 60, unit: "тренировок",
-            note: "Сильнее каждую неделю.",
-            moments: [
-              { id: uid("m"), date: daysAgo(42), value: 1, note: "Первый подход." },
-              { id: uid("m"), date: today(), value: 42, note: "Плечи стали увереннее." }
-            ]
-          },
-          {
-            id: uid("p"), name: "Финансовая цель", type: "money", color: "#38BDF8", icon: "💰",
-            startDate: daysAgo(88), endDate: daysPlus(92), current: 230000, target: 500000, unit: "₽",
-            note: "Деньги как спокойствие, а не напряжение.",
-            moments: [
-              { id: uid("m"), date: daysAgo(88), value: 50000, note: "Стартовый капитал." },
-              { id: uid("m"), date: today(), value: 230000, note: "Почти половина пути." }
-            ]
-          }
-        ],
-        victories: [
-          {
-            id: uid("v"), name: "30 дней без энергетиков", type: "time", color: "#F59E0B", icon: "⚡",
-            startDate: daysAgo(80), endDate: daysAgo(50), current: 30, target: 30, unit: "дней",
-            note: "Сон стал ровнее, утро спокойнее.", completedAt: daysAgo(50), moments: []
-          }
-        ]
-      };
+    function localDate(date = new Date()) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
     }
-    function emptyState() {
-      return { paths: [], victories: [] };
+    function parseDate(value) {
+      const [y, m, d] = String(value || localDate()).split("-").map(Number);
+      return new Date(y, (m || 1) - 1, d || 1, 12, 0, 0, 0);
     }
-    function loadState() {
-      try {
-        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        if (parsed && Array.isArray(parsed.paths) && Array.isArray(parsed.victories)) return parsed;
-      } catch (_) {}
-      return demoState();
+    function shiftDate(value, delta) {
+      const date = parseDate(value);
+      date.setDate(date.getDate() + delta);
+      return localDate(date);
     }
-    function clearAllLocalData() {
-      Object.keys(localStorage).forEach(key => {
-        if (/^(ravian|finora|ravshik)/i.test(key)) localStorage.removeItem(key);
-      });
+    function daysBetween(a, b) {
+      return Math.round((parseDate(b) - parseDate(a)) / 86400000);
     }
-    function loadPrefs() {
-      try { return { theme: "system", ...JSON.parse(localStorage.getItem(PREF_KEY)) }; }
-      catch (_) { return { theme: "system" }; }
+    function dateRange(start, end) {
+      const out = [];
+      const total = Math.max(0, daysBetween(start, end));
+      for (let i = 0; i <= total; i += 1) out.push(shiftDate(start, i));
+      return out;
     }
-    function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-    function savePrefs() { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); }
-    function applyTheme() {
-      const systemDark = matchMedia("(prefers-color-scheme: dark)").matches;
-      const theme = prefs.theme === "system" ? (systemDark ? "dark" : "light") : prefs.theme;
-      document.documentElement.dataset.theme = theme;
-      byId("themeBtn").textContent = theme === "dark" ? "☾" : "☼";
-      document.querySelectorAll("[data-theme-choice]").forEach(btn => btn.classList.toggle("active", btn.dataset.themeChoice === prefs.theme));
+    function dateLabel(value) {
+      if (!value) return "Без даты";
+      const options = prefs.dateFormat === "short"
+        ? { day: "2-digit", month: "2-digit", year: "numeric" }
+        : { day: "numeric", month: "long", year: "numeric" };
+      return parseDate(value).toLocaleDateString("ru-RU", options);
     }
     function number(value) {
       return new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 1 }).format(Number(value || 0));
     }
-    function dateLabel(value) {
-      if (!value) return "Без финиша";
-      return new Date(`${value}T12:00:00`).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" });
+    function money(value, currency = "₽") {
+      return `${number(value)} ${currency || "₽"}`;
     }
-    function lastPhoto(moments) {
-      for (let index = moments.length - 1; index >= 0; index -= 1) {
-        if (moments[index].photo) return moments[index].photo;
-      }
-      return "";
-    }
-    function daysBetween(a, b) {
-      return Math.max(0, Math.round((new Date(`${b}T12:00:00`) - new Date(`${a}T12:00:00`)) / 86400000));
-    }
-    function calcProgress(path) {
-      if (path.type === "time") {
-        const current = daysBetween(path.startDate, today());
-        path.current = Math.max(Number(path.current || 0), current);
-      }
-      const target = Math.abs(Number(path.target || 0));
-      if (!target) return 0;
-      return Math.min(100, Math.max(0, Math.round((Number(path.current || 0) / target) * 100)));
-    }
-    function remainingText(path) {
-      const progress = calcProgress(path);
-      const left = Math.max(0, Number(path.target || 0) - Number(path.current || 0));
-      if (progress >= 100) return "Путь готов к победе";
-      if (path.endDate) {
-        const days = daysBetween(today(), path.endDate);
-        return days ? `До финиша ${days} дн.` : "Финиш сегодня";
-      }
-      if (left) return `Еще ${number(left)} ${path.unit || ""}`.trim();
-      return "Продолжай движение";
-    }
-    function metricText(path) {
-      const unit = path.unit || "";
-      if (path.type === "weight" && Number(path.current) < 0) return `−${number(Math.abs(path.current))} ${unit}`;
-      return `${number(path.current)} ${unit}`.trim();
-    }
-    function levelFor(progress) {
-      if (progress >= 100) return "Легенда";
-      if (progress >= 75) return "Уверенность";
-      if (progress >= 50) return "Дисциплина";
-      if (progress >= 25) return "Формирование";
-      return "Начало";
+    function pct(value) {
+      return Math.min(100, Math.max(0, Math.round(Number(value || 0))));
     }
     function escapeHtml(value) {
       return String(value || "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#039;" })[char]);
     }
-    function pathCard(path, index = 0, victory = false) {
-      const progress = victory ? 100 : calcProgress(path);
-      return `
-        <article class="path-card ${index === 0 ? "featured" : ""}" style="--card:${path.color};--progress:${progress}%" data-path-id="${path.id}" ${victory ? "data-victory=\"true\"" : ""}>
-          <div class="path-top">
-            <div class="path-name">
-              <span class="path-icon">${path.icon}</span>
-              <div>
-                <h2>${escapeHtml(path.name)}</h2>
-                <p class="caption">${victory ? "Победа сохранена" : levelFor(progress)}</p>
-              </div>
-            </div>
-            <span class="pill">${progress}%</span>
-          </div>
-          <div class="metric">
-            <strong>${escapeHtml(metricText(path))}</strong>
-            <div class="progress-shell"><div class="progress-fill"></div></div>
-          </div>
-          <div class="path-foot">
-            <p class="caption">${escapeHtml(victory ? path.note : remainingText(path))}</p>
-            <span class="pill">${path.startDate ? dateLabel(path.startDate).split(" ").slice(0,2).join(" ") : ""}</span>
-          </div>
-        </article>`;
+    function defaultPrefs() {
+      return { theme: "system", confirmFail: true, weekStart: "monday", showEmptyStats: true, dateFormat: "long" };
     }
-    function renderHero() {
-      const active = state.paths.length;
-      const done = state.victories.length;
-      const totalDays = state.paths.reduce((sum, path) => sum + daysBetween(path.startDate, today()), 0);
-      byId("heroStats").innerHTML = `
-        <div class="stat"><b>${active}</b><span>активных путей</span></div>
-        <div class="stat"><b>${done}</b><span>побед в коллекции</span></div>
-        <div class="stat"><b>${totalDays}</b><span>дней развития</span></div>`;
+    function loadPrefs() {
+      try {
+        const next = JSON.parse(localStorage.getItem(PREF_KEY)) || JSON.parse(localStorage.getItem(OLD_PREF_KEY));
+        return { ...defaultPrefs(), ...next };
+      } catch (_) {
+        return defaultPrefs();
+      }
     }
-    function renderHome() {
-      renderHero();
-      const paths = byId("paths");
-      if (!state.paths.length) {
-        paths.innerHTML = `
-          <div class="empty">
-            <div class="empty-inner">
-              <div class="big">◇</div>
-              <h2>Начни первый путь</h2>
-              <p class="muted">Выбери то, что изменит тебя через месяц, год или всю жизнь.</p>
-              <button class="primary" type="button" data-open-create>Создать путь</button>
-            </div>
+    function emptyState() {
+      return { version: 2, goals: [], archive: [], migratedAt: null };
+    }
+    function loadState() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (parsed && Array.isArray(parsed.goals)) return normalizeState(parsed);
+      } catch (_) {}
+      try {
+        const old = JSON.parse(localStorage.getItem(OLD_STORAGE_KEY));
+        if (old && Array.isArray(old.paths)) return migrateOldState(old);
+      } catch (_) {}
+      return demoState();
+    }
+    function normalizeState(data) {
+      return {
+        version: 2,
+        goals: (data.goals || []).map(normalizeGoal),
+        archive: (data.archive || []).map(normalizeGoal),
+        migratedAt: data.migratedAt || null
+      };
+    }
+    function normalizeGoal(goal) {
+      const trackingType = goal.trackingType || goal.type || "custom";
+      return {
+        id: goal.id || uid("goal"),
+        name: goal.name || "Без названия",
+        trackingType,
+        icon: goal.icon || typeInfo[trackingType]?.icon || "◇",
+        color: goal.color || colors[0],
+        startDate: goal.startDate || localDate(),
+        endDate: goal.endDate || "",
+        targetValue: Number(goal.targetValue ?? goal.target ?? 0),
+        currentValue: Number(goal.currentValue ?? goal.current ?? 0),
+        startValue: Number(goal.startValue ?? goal.initialValue ?? goal.currentValue ?? 0),
+        direction: goal.direction || "increase",
+        dailyTarget: Number(goal.dailyTarget || 0),
+        unit: goal.unit || typeInfo[trackingType]?.unit || "",
+        currency: goal.currency || "₽",
+        note: goal.note || "",
+        schedule: goal.schedule || "daily",
+        requireFailConfirm: goal.requireFailConfirm ?? true,
+        missedIsFail: goal.missedIsFail ?? false,
+        allowMultipleEntries: goal.allowMultipleEntries ?? true,
+        includeWithdrawals: goal.includeWithdrawals ?? true,
+        dailyRecords: goal.dailyRecords || {},
+        entries: Array.isArray(goal.entries) ? goal.entries : [],
+        transactions: Array.isArray(goal.transactions) ? goal.transactions : [],
+        measurements: Array.isArray(goal.measurements) ? goal.measurements : [],
+        createdAt: goal.createdAt || new Date().toISOString()
+      };
+    }
+    function migrateOldState(old) {
+      const goals = old.paths.map(path => {
+        const typeMap = { time: "daily", count: "quantity", money: "money", weight: "measurement", custom: "custom" };
+        const trackingType = typeMap[path.type] || "custom";
+        const goal = normalizeGoal({
+          id: path.id || uid("goal"),
+          name: path.name,
+          trackingType,
+          icon: path.icon,
+          color: path.color,
+          startDate: path.startDate,
+          endDate: path.endDate,
+          targetValue: path.target,
+          currentValue: path.current,
+          startValue: path.type === "weight" ? Math.max(Number(path.current || 0), Number(path.target || 0)) : 0,
+          unit: path.unit,
+          note: path.note
+        });
+        if (trackingType === "daily") {
+          (path.moments || []).forEach(moment => {
+            if (moment.date) goal.dailyRecords[moment.date] = { status: "success", note: moment.note || "" };
+          });
+        } else if (trackingType === "money") {
+          goal.transactions = (path.moments || []).map(moment => ({ date: moment.date || goal.startDate, type: "income", amount: Number(moment.value || 0), note: moment.note || "" }));
+        } else if (trackingType === "measurement") {
+          goal.measurements = (path.moments || []).map(moment => ({ date: moment.date || goal.startDate, value: Number(moment.value || 0), note: moment.note || "" }));
+        } else {
+          goal.entries = (path.moments || []).map(moment => ({ date: moment.date || goal.startDate, value: Number(moment.value || 0), note: moment.note || "" }));
+        }
+        return goal;
+      });
+      return { version: 2, goals, archive: (old.victories || []).map(path => normalizeGoal({ ...path, trackingType: "daily" })), migratedAt: new Date().toISOString() };
+    }
+    function demoState() {
+      const t = localDate();
+      const daysAgo = n => shiftDate(t, -n);
+      const dailyRecords = {};
+      ["success","success","success","success","success","fail","success","success","success"].forEach((status, index) => {
+        dailyRecords[daysAgo(13 - index)] = { status, note: status === "fail" ? "Срыв вечером" : "" };
+      });
+      return {
+        version: 2,
+        goals: [
+          normalizeGoal({ name: "Без курения", trackingType: "daily", icon: "🚭", color: "#22C55E", startDate: daysAgo(24), targetValue: 30, unit: "дней", note: "Дышать свободнее", dailyRecords }),
+          normalizeGoal({ name: "Отжимания", trackingType: "quantity", icon: "💪", color: "#6C63FF", startDate: daysAgo(18), currentValue: 420, targetValue: 1000, dailyTarget: 30, unit: "повторений", entries: [{ date: t, value: 20, note: "Два подхода" }] }),
+          normalizeGoal({ name: "Подушка безопасности", trackingType: "money", icon: "💰", color: "#38BDF8", startDate: daysAgo(40), currentValue: 85000, targetValue: 300000, unit: "₽", currency: "₽", transactions: [{ date: t, type: "income", amount: 5000, note: "Отложил с зарплаты" }] }),
+          normalizeGoal({ name: "Вес", trackingType: "measurement", icon: "⚖️", color: "#F59E0B", startDate: daysAgo(28), startValue: 92, currentValue: 88.4, targetValue: 82, unit: "кг", direction: "decrease", measurements: [{ date: daysAgo(28), value: 92, note: "Старт" }, { date: t, value: 88.4, note: "Утром" }] })
+        ],
+        archive: [],
+        migratedAt: null
+      };
+    }
+    function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    function savePrefs() { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); }
+    function applyTheme() {
+      const dark = prefs.theme === "system" ? matchMedia("(prefers-color-scheme: dark)").matches : prefs.theme === "dark";
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+      byId("themeBtn").textContent = dark ? "☾" : "☼";
+      document.querySelectorAll("[data-theme-choice]").forEach(btn => btn.classList.toggle("active", btn.dataset.themeChoice === prefs.theme));
+      byId("weekStartSetting").value = prefs.weekStart;
+      byId("dateFormatSetting").value = prefs.dateFormat;
+      byId("confirmFailSetting").checked = prefs.confirmFail;
+      byId("showEmptyStatsSetting").checked = prefs.showEmptyStats;
+    }
+    function goalProgress(goal) {
+      if (goal.trackingType === "daily") {
+        const s = dailyStats(goal);
+        return goal.targetValue ? (s.success / goal.targetValue) * 100 : s.successRate;
+      }
+      if (goal.trackingType === "measurement") {
+        const start = Number(goal.startValue || 0);
+        const current = currentValue(goal);
+        const target = Number(goal.targetValue || 0);
+        const total = goal.direction === "decrease" ? start - target : target - start;
+        const done = goal.direction === "decrease" ? start - current : current - start;
+        return total ? (done / total) * 100 : 0;
+      }
+      const target = Number(goal.targetValue || 0);
+      return target ? (currentValue(goal) / target) * 100 : 0;
+    }
+    function currentValue(goal) {
+      if (goal.trackingType === "money") {
+        if (goal.transactions.length) {
+          return goal.transactions.reduce((sum, tx) => sum + (tx.type === "expense" ? -Number(tx.amount || 0) : Number(tx.amount || 0)), 0);
+        }
+      }
+      if (goal.trackingType === "quantity" || goal.trackingType === "custom") {
+        if (goal.entries.length) return goal.entries.reduce((sum, entry) => sum + Number(entry.value || 0), 0);
+      }
+      if (goal.trackingType === "measurement") {
+        const latest = [...goal.measurements].sort((a, b) => String(a.date).localeCompare(String(b.date))).at(-1);
+        return Number(latest?.value ?? goal.currentValue ?? goal.startValue ?? 0);
+      }
+      return Number(goal.currentValue || 0);
+    }
+    function todayStatus(goal) {
+      const t = localDate();
+      if (goal.trackingType === "daily") {
+        const status = goal.dailyRecords?.[t]?.status || "empty";
+        if (status === "success") return { text: "Сегодня выполнено", cls: "status-success" };
+        if (status === "fail") return { text: "Сегодня срыв", cls: "status-fail" };
+        return { text: "Без отметки", cls: "" };
+      }
+      const has = dayEntries(goal, t).length;
+      return { text: has ? "Есть запись" : "Нет записи", cls: has ? "status-success" : "" };
+    }
+    function dayEntries(goal, date) {
+      if (goal.trackingType === "money") return goal.transactions.filter(item => item.date === date);
+      if (goal.trackingType === "measurement") return goal.measurements.filter(item => item.date === date);
+      return goal.entries.filter(item => item.date === date);
+    }
+    function dailyStats(goal) {
+      const records = goal.dailyRecords || {};
+      const dates = Object.keys(records).sort();
+      let current = 0;
+      let best = 0;
+      let run = 0;
+      let success = 0;
+      let fail = 0;
+      dates.forEach(date => {
+        const status = records[date]?.status;
+        if (status === "success") { success += 1; run += 1; best = Math.max(best, run); }
+        else if (status === "fail") { fail += 1; run = 0; }
+      });
+      for (let date = localDate(); date >= (goal.startDate || localDate()); date = shiftDate(date, -1)) {
+        const status = records[date]?.status;
+        if (status === "success") current += 1;
+        else if (status === "fail") break;
+        else if (date !== localDate()) break;
+        if (daysBetween(goal.startDate, date) <= 0) break;
+      }
+      const counted = success + fail + (prefs.showEmptyStats ? Math.max(0, daysBetween(goal.startDate, localDate()) + 1 - success - fail) : 0);
+      return { current, best, success, fail, successRate: counted ? Math.round((success / counted) * 100) : 0 };
+    }
+    function last14(goal) {
+      const t = localDate();
+      return Array.from({ length: 14 }, (_, i) => shiftDate(t, i - 13)).map(date => goal.dailyRecords?.[date]?.status || "empty");
+    }
+    function renderHeroStats() {
+      const goals = state.goals;
+      const dailyDone = goals.filter(g => g.trackingType === "daily" && g.dailyRecords?.[localDate()]?.status === "success").length;
+      const recordsToday = goals.filter(g => g.trackingType !== "daily" && dayEntries(g, localDate()).length).length;
+      byId("todayStats").innerHTML = `
+        <div class="stat"><b>${goals.length}</b><span>активных целей</span></div>
+        <div class="stat"><b>${dailyDone}</b><span>отметок выполнено</span></div>
+        <div class="stat"><b>${recordsToday}</b><span>записей сегодня</span></div>`;
+      byId("todayDateLabel").textContent = dateLabel(localDate());
+    }
+    function renderGoalRow(goal) {
+      const progress = pct(goalProgress(goal));
+      const status = todayStatus(goal);
+      let body = "";
+      if (goal.trackingType === "daily") {
+        const s = dailyStats(goal);
+        body = `
+          <div class="goal-meta">Серия: ${s.current} дн. · Лучший результат: ${s.best} дн. · Успех: ${s.successRate}%</div>
+          <div class="day-dots" aria-label="Последние 14 дней">${last14(goal).map(x => `<span class="day-dot ${x}"></span>`).join("")}</div>`;
+      } else if (goal.trackingType === "measurement") {
+        body = `
+          <div class="measure-grid">
+            <div class="measure-cell"><span class="caption">Было</span><b>${number(goal.startValue)} ${escapeHtml(goal.unit)}</b></div>
+            <div class="measure-cell"><span class="caption">Сейчас</span><b>${number(currentValue(goal))} ${escapeHtml(goal.unit)}</b></div>
+            <div class="measure-cell"><span class="caption">Цель</span><b>${number(goal.targetValue)} ${escapeHtml(goal.unit)}</b></div>
           </div>`;
+      } else {
+        const value = currentValue(goal);
+        const label = goal.trackingType === "money" ? `${money(value, goal.currency)} из ${money(goal.targetValue, goal.currency)}` : `${number(value)} из ${number(goal.targetValue)} ${escapeHtml(goal.unit)}`.trim();
+        body = `
+          <div class="progress-line">
+            <div class="progress-top"><span>${label}</span><span>${progress}%</span></div>
+            <div class="bar" style="--progress:${progress}%"><span></span></div>
+          </div>`;
+      }
+      return `
+        <button class="goal-row" type="button" style="--goal-color:${goal.color}" data-goal-id="${goal.id}" aria-label="Открыть цель ${escapeHtml(goal.name)}">
+          <div class="goal-main">
+            <span class="goal-icon">${goal.icon}</span>
+            <div class="goal-title">
+              <h3>${escapeHtml(goal.name)}</h3>
+              <p class="caption">${escapeHtml(typeInfo[goal.trackingType]?.title || "Цель")}</p>
+            </div>
+            <span class="status-pill ${status.cls}">${status.text}</span>
+          </div>
+          ${body}
+        </button>`;
+    }
+    function renderGoals() {
+      const list = byId("goalsList");
+      const calendar = byId("calendarView");
+      document.querySelectorAll("[data-view-mode]").forEach(btn => btn.classList.toggle("active", btn.dataset.viewMode === currentView));
+      list.classList.toggle("hidden", currentView !== "list");
+      calendar.classList.toggle("hidden", currentView !== "calendar");
+      if (!state.goals.length) {
+        list.innerHTML = emptyMarkup("Создайте первую цель", "Выберите способ отслеживания: ежедневная отметка, количество, деньги, измерение или произвольная цель.");
+        calendar.innerHTML = "";
         return;
       }
-      paths.innerHTML = state.paths.map((path, index) => pathCard(path, index)).join("");
+      list.innerHTML = state.goals.map(renderGoalRow).join("");
+      renderCalendar();
+    }
+    function renderCalendar() {
+      const now = parseDate(localDate());
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const days = new Date(year, month + 1, 0).getDate();
+      const dates = Array.from({ length: days }, (_, i) => localDate(new Date(year, month, i + 1, 12)));
+      const rows = state.goals.map(goal => {
+        const cells = dates.map(date => {
+          if (goal.trackingType === "daily") {
+            const status = goal.dailyRecords?.[date]?.status || "empty";
+            return `<button class="cal-cell" type="button" data-edit-day="${goal.id}" data-date="${date}" aria-label="${escapeHtml(goal.name)} ${dateLabel(date)}"><span class="cal-mark ${status}"></span></button>`;
+          }
+          const entries = dayEntries(goal, date);
+          const value = entries.reduce((sum, item) => sum + Number(item.value || item.amount || 0), 0);
+          return `<button class="cal-cell" type="button" data-edit-day="${goal.id}" data-date="${date}" aria-label="${escapeHtml(goal.name)} ${dateLabel(date)}">${entries.length ? `<span class="cal-mark value">${value ? number(value) : "•"}</span>` : `<span class="cal-mark"></span>`}</button>`;
+        }).join("");
+        return `<div class="cal-cell cal-goal">${goal.icon} ${escapeHtml(goal.name)}</div>${cells}`;
+      }).join("");
+      byId("calendarView").innerHTML = `<div class="calendar-grid" style="--days:${days}"><div class="cal-cell cal-head cal-goal">${now.toLocaleDateString("ru-RU", { month: "long", year: "numeric" })}</div>${dates.map(d => `<div class="cal-cell cal-head">${parseDate(d).getDate()}</div>`).join("")}${rows}</div>`;
+    }
+    function renderToday() {
+      renderHeroStats();
+      const list = byId("todayList");
+      if (!state.goals.length) {
+        list.innerHTML = emptyMarkup("Сегодня пока пусто", "Создайте цель, и здесь появятся быстрые действия на день.");
+      } else {
+        list.innerHTML = state.goals.map(goal => {
+          const status = todayStatus(goal);
+          const quick = goal.trackingType === "daily"
+            ? `<div class="quick-actions"><button class="secondary" type="button" data-set-today="${goal.id}" data-status="success">Выполнено</button><button class="ghost" type="button" data-set-today="${goal.id}" data-status="fail">Срыв</button><button class="ghost" type="button" data-edit-day="${goal.id}" data-date="${localDate()}">День</button></div>`
+            : `<div class="quick-actions"><button class="secondary" type="button" data-quick-add="${goal.id}" data-value="5">+5</button><button class="secondary" type="button" data-quick-add="${goal.id}" data-value="10">+10</button><button class="ghost" type="button" data-edit-day="${goal.id}" data-date="${localDate()}">Ввести</button></div>`;
+          return `<article class="today-card" style="--goal-color:${goal.color}"><div class="today-head"><span class="goal-icon">${goal.icon}</span><div><h3>${escapeHtml(goal.name)}</h3><p class="caption">${status.text}</p></div></div>${quick}</article>`;
+        }).join("");
+      }
+      byId("quickStats").innerHTML = state.goals.slice(0, 4).map(goal => {
+        const progress = pct(goalProgress(goal));
+        return `<div class="summary-box"><b>${goal.icon} ${escapeHtml(goal.name)}</b><div class="bar" style="--progress:${progress}%"><span></span></div><p class="caption">${progress}% · ${escapeHtml(typeInfo[goal.trackingType].title)}</p></div>`;
+      }).join("") || `<p class="muted">Нет целей для обзора.</p>`;
+    }
+    function renderStats() {
+      byId("statsContent").innerHTML = state.goals.map(goal => {
+        if (goal.trackingType === "daily") {
+          const s = dailyStats(goal);
+          return `<section class="panel"><h2>${goal.icon} ${escapeHtml(goal.name)}</h2><div class="stat-grid"><div class="stat"><b>${s.current}</b><span>текущая серия</span></div><div class="stat"><b>${s.best}</b><span>лучшая серия</span></div><div class="stat"><b>${s.successRate}%</b><span>успех</span></div></div><p class="caption">Успешные дни: ${s.success}. Срывы: ${s.fail}.</p><div class="day-dots">${last14(goal).map(x => `<span class="day-dot ${x}"></span>`).join("")}</div></section>`;
+        }
+        if (goal.trackingType === "money") {
+          const income = goal.transactions.filter(x => x.type !== "expense").reduce((s, x) => s + Number(x.amount || 0), 0);
+          const expense = goal.transactions.filter(x => x.type === "expense").reduce((s, x) => s + Number(x.amount || 0), 0);
+          return `<section class="panel"><h2>${goal.icon} ${escapeHtml(goal.name)}</h2><div class="stat-grid"><div class="stat"><b>${money(income, goal.currency)}</b><span>внесено</span></div><div class="stat"><b>${money(expense, goal.currency)}</b><span>снято</span></div><div class="stat"><b>${pct(goalProgress(goal))}%</b><span>прогресс</span></div></div></section>`;
+        }
+        if (goal.trackingType === "measurement") {
+          const diff = currentValue(goal) - Number(goal.startValue || 0);
+          return `<section class="panel"><h2>${goal.icon} ${escapeHtml(goal.name)}</h2><div class="stat-grid"><div class="stat"><b>${number(goal.startValue)}</b><span>старт</span></div><div class="stat"><b>${number(currentValue(goal))}</b><span>сейчас</span></div><div class="stat"><b>${number(diff)}</b><span>разница</span></div></div></section>`;
+        }
+        const entries = goal.entries || [];
+        const avg = entries.length ? entries.reduce((s, x) => s + Number(x.value || 0), 0) / entries.length : 0;
+        return `<section class="panel"><h2>${goal.icon} ${escapeHtml(goal.name)}</h2><div class="stat-grid"><div class="stat"><b>${number(currentValue(goal))}</b><span>всего</span></div><div class="stat"><b>${number(avg)}</b><span>среднее</span></div><div class="stat"><b>${pct(goalProgress(goal))}%</b><span>прогресс</span></div></div></section>`;
+      }).join("") || emptyMarkup("Статистика появится позже", "Создайте цель и добавьте первые записи.");
+    }
+    function emptyMarkup(title, text) {
+      return `<div class="empty"><div style="font-size:42px">◇</div><h2>${title}</h2><p class="muted">${text}</p><button class="primary" type="button" data-open-create>Создать цель</button></div>`;
     }
     function renderDetail() {
-      const path = state.paths.find(item => item.id === activePathId) || state.victories.find(item => item.id === activePathId);
+      const goal = state.goals.find(g => g.id === activeGoalId);
       const page = byId("detailPage");
-      if (!path) { page.innerHTML = ""; return; }
-      const progress = calcProgress(path);
-      const isVictory = Boolean(path.completedAt);
-      const moments = [...(path.moments || [])].sort((a, b) => String(a.date).localeCompare(String(b.date)));
-      const photos = moments.filter(moment => moment.photo);
-      const latestPhoto = lastPhoto(moments);
+      if (!goal) { page.innerHTML = ""; return; }
+      const s = goal.trackingType === "daily" ? dailyStats(goal) : null;
       page.innerHTML = `
-        <button class="ghost" type="button" data-page="home" style="margin-bottom:14px">← Назад</button>
-        <section class="detail-hero" style="--card:${path.color};--progress:${progress}%">
-          <div class="path-top">
-            <div class="path-name">
-              <span class="path-icon">${path.icon}</span>
-              <div>
-                <h2>${escapeHtml(path.name)}</h2>
-                <p class="caption">${isVictory ? "В коллекции побед" : levelFor(progress)}</p>
-              </div>
-            </div>
-            <span class="pill">${progress}%</span>
+        <button class="ghost" type="button" data-page="goals" style="margin-bottom:12px">← Назад</button>
+        <section class="panel" style="--goal-color:${goal.color}">
+          <div class="goal-main">
+            <span class="goal-icon">${goal.icon}</span>
+            <div class="goal-title"><h1>${escapeHtml(goal.name)}</h1><p class="caption">${escapeHtml(goal.note || typeInfo[goal.trackingType].title)}</p></div>
           </div>
-          <div>
-            <div class="detail-number">${escapeHtml(metricText(path))}</div>
-            <p class="caption">${escapeHtml(path.note || remainingText(path))}</p>
-          </div>
-          <div class="progress-shell"><div class="progress-fill"></div></div>
-          <div class="grid-2">
-            <div><p class="caption">Начало</p><h3>${dateLabel(path.startDate)}</h3></div>
-            <div><p class="caption">Финиш</p><h3>${dateLabel(path.endDate)}</h3></div>
-          </div>
-          <div class="grid-2">
-            ${isVictory ? "" : `<button class="primary" type="button" data-update="${path.id}">Обновить</button>`}
-            ${!isVictory && progress >= 100 ? `<button class="secondary" type="button" data-complete="${path.id}">В коллекцию побед</button>` : ""}
-          </div>
-        </section>
-        <div class="detail-layout">
-          <section class="panel">
-            <div class="section-head" style="margin:0">
-              <div>
-                <h2>Фото изменений</h2>
-                <p class="caption">${photos.length ? `${photos.length} фото в пути` : "Добавь первое фото этапа"}</p>
-              </div>
-              ${isVictory ? "" : `<button class="secondary" type="button" data-add-photo="${path.id}">Добавить фото</button>`}
-            </div>
-            <div class="photo-strip">
-              <div class="photo">${moments[0]?.photo ? `<img src="${moments[0].photo}" alt="">` : "Фото до"}</div>
-              <div class="photo">${latestPhoto ? `<img src="${latestPhoto}" alt="">` : "Фото сейчас"}</div>
-            </div>
-            ${photos.length ? `
-              <div class="photo-gallery">
-                ${photos.map(photo => `
-                  <article class="photo-card">
-                    <img src="${photo.photo}" alt="">
-                    <div>
-                      <h3>${dateLabel(photo.date)}</h3>
-                      <p class="caption">${escapeHtml(photo.note || "Этап пути")}</p>
-                    </div>
-                  </article>`).join("")}
-              </div>` : ""}
-          </section>
-          <section class="panel">
-            <h2>Достижения</h2>
-            <div class="medals">
-              ${achievementMarkup(progress, path)}
-            </div>
-          </section>
-        </div>
-        <section class="panel">
-          <h2>Личный дневник</h2>
-          <div class="timeline">
-            ${moments.map((moment, index) => `
-              <div class="moment">
-                <span class="dot">${index + 1}</span>
-                <div>
-                  <h3>${dateLabel(moment.date)}</h3>
-                  <p class="caption">${escapeHtml(number(moment.value))} ${escapeHtml(path.unit || "")}</p>
-                  <p class="muted" style="margin-top:5px">${escapeHtml(moment.note || "Новый этап пути")}</p>
-                </div>
-              </div>`).join("") || `<p class="muted">Первые записи появятся после обновления пути.</p>`}
-          </div>
+          ${goal.trackingType === "daily" ? `<div class="stat-grid"><div class="stat"><b>${s.current}</b><span>серия</span></div><div class="stat"><b>${s.best}</b><span>лучший результат</span></div><div class="stat"><b>${s.fail}</b><span>срывов</span></div></div><div class="quick-actions"><button class="secondary" type="button" data-set-today="${goal.id}" data-status="success">Сегодня выполнено</button><button class="ghost" type="button" data-set-today="${goal.id}" data-status="fail">Сегодня срыв</button><button class="ghost" type="button" data-open-bulk="${goal.id}">Заполнить прошлые дни</button></div>` : `<div class="progress-line"><div class="progress-top"><span>${number(currentValue(goal))} ${escapeHtml(goal.unit || goal.currency)}</span><span>${pct(goalProgress(goal))}%</span></div><div class="bar" style="--progress:${pct(goalProgress(goal))}%"><span></span></div></div><button class="secondary" type="button" data-edit-day="${goal.id}" data-date="${localDate()}">Добавить запись</button>`}
+          <div class="calendar-wrap" id="detailCalendar"></div>
+          <div class="quick-actions"><button class="ghost" type="button" data-delete-goal="${goal.id}">Удалить</button></div>
         </section>`;
+      renderGoalMonthCalendar(goal);
     }
-    function achievementMarkup(progress, path) {
-      const list = [
-        ["Первый день", progress > 0],
-        ["Первая четверть", progress >= 25],
-        ["Половина пути", progress >= 50],
-        ["Железная дисциплина", progress >= 75],
-        ["Легенда", progress >= 100]
-      ];
-      return list.map(([title, active]) => `
-        <div class="medal" style="${active ? "" : "opacity:.45;filter:grayscale(.7)"}">
-          <div style="font-size:30px">🏆</div>
-          <h3>${title}</h3>
-          <p class="caption">${active ? escapeHtml(path.name) : "Еще впереди"}</p>
-        </div>`).join("");
-    }
-    function renderVictories() {
-      byId("victories").innerHTML = state.victories.length
-        ? state.victories.map((path, index) => pathCard(path, index, true)).join("")
-        : `<div class="empty"><div class="empty-inner"><div class="big">◇</div><h2>Победы еще впереди</h2><p class="muted">Когда путь завершится, он станет золотой карточкой здесь.</p></div></div>`;
+    function renderGoalMonthCalendar(goal) {
+      const target = byId("detailCalendar");
+      if (!target) return;
+      const now = parseDate(localDate());
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const days = new Date(year, month + 1, 0).getDate();
+      const dates = Array.from({ length: days }, (_, i) => localDate(new Date(year, month, i + 1, 12)));
+      target.innerHTML = `<div class="calendar-grid" style="--days:${days};grid-template-columns:repeat(${days},34px)">${dates.map(date => {
+        if (goal.trackingType === "daily") {
+          const status = goal.dailyRecords?.[date]?.status || "empty";
+          return `<button class="cal-cell" type="button" data-edit-day="${goal.id}" data-date="${date}"><span class="cal-mark ${status}"></span></button>`;
+        }
+        return `<button class="cal-cell" type="button" data-edit-day="${goal.id}" data-date="${date}"><span class="cal-mark ${dayEntries(goal, date).length ? "value" : ""}">${dayEntries(goal, date).length ? "•" : ""}</span></button>`;
+      }).join("")}</div>`;
     }
     function renderChoices() {
-      byId("typeChoices").innerHTML = types.map(type => `<button class="choice ${type.id === selectedType ? "active" : ""}" type="button" data-type="${type.id}">${type.label}</button>`).join("");
-      byId("colorChoices").innerHTML = colors.map(color => `<button class="swatch ${color === selectedColor ? "active" : ""}" type="button" data-color="${color}" style="background:${color}" aria-label="${color}"></button>`).join("");
-      byId("iconChoices").innerHTML = icons.map(icon => `<button class="emoji-choice ${icon === selectedIcon ? "active" : ""}" type="button" data-icon="${icon}">${icon}</button>`).join("");
+      byId("trackingChoices").innerHTML = Object.entries(typeInfo).map(([id, info]) => `<button class="choice-card ${draft.trackingType === id ? "active" : ""}" type="button" data-select-type="${id}"><span style="font-size:24px">${info.icon}</span><strong>${info.title}</strong><p>${info.hint}</p><p><b>Пример:</b> ${info.example}</p></button>`).join("");
+      byId("selectedTypeNote").innerHTML = `<b>Вы выбрали: ${typeInfo[draft.trackingType].title}</b><p>${typeInfo[draft.trackingType].selected}</p>`;
+      byId("colorChoices").innerHTML = colors.map(color => `<button class="swatch ${draft.color === color ? "active" : ""}" type="button" data-color="${color}" style="background:${color}" aria-label="Выбрать цвет ${color}"></button>`).join("");
+    }
+    function renderWizard() {
+      byId("createStepLabel").textContent = `Шаг ${createStep} из 5`;
+      byId("wizardDots").innerHTML = Array.from({ length: 5 }, (_, i) => `<span class="step-dot ${i + 1 <= createStep ? "active" : ""}"></span>`).join("");
+      document.querySelectorAll("[data-step-panel]").forEach(panel => panel.hidden = Number(panel.dataset.stepPanel) !== createStep);
+      byId("prevStepBtn").classList.toggle("hidden", createStep === 1);
+      byId("nextStepBtn").textContent = createStep === 5 ? "Создать цель" : "Дальше";
+      if (createStep === 3) renderParamsFields();
+      if (createStep === 5) renderCreateSummary();
+      renderChoices();
+    }
+    function renderParamsFields() {
+      const type = draft.trackingType;
+      let html = "";
+      if (type === "daily") {
+        html = `<label>Цель по количеству дней<input id="targetValue" inputmode="decimal" placeholder="30" value="${draft.targetValue || 30}"></label><div class="grid-2"><label>Подтверждать срыв<select id="requireFailConfirm"><option value="true">Да</option><option value="false">Нет</option></select></label><label>Пропуск считать срывом<select id="missedIsFail"><option value="false">Нет</option><option value="true">Да</option></select></label></div>`;
+      } else if (type === "quantity") {
+        html = `<div class="grid-2"><label>Единица измерения<input id="unitValue" value="${escapeHtml(draft.unit || "повторений")}"></label><label>Цель за день<input id="dailyTarget" inputmode="decimal" value="${draft.dailyTarget || 30}"></label></div><label>Общая цель<input id="targetValue" inputmode="decimal" value="${draft.targetValue || 1000}"></label>`;
+      } else if (type === "money") {
+        html = `<div class="grid-2"><label>Текущая сумма<input id="currentValue" inputmode="decimal" value="${draft.currentValue || 0}"></label><label>Итоговая сумма<input id="targetValue" inputmode="decimal" value="${draft.targetValue || 300000}"></label></div><label>Валюта<input id="currencyValue" value="${escapeHtml(draft.currency || "₽")}"></label>`;
+      } else if (type === "measurement") {
+        html = `<div class="grid-3"><label>Единица<input id="unitValue" value="${escapeHtml(draft.unit || "кг")}"></label><label>Старт<input id="startValue" inputmode="decimal" value="${draft.startValue || 0}"></label><label>Цель<input id="targetValue" inputmode="decimal" value="${draft.targetValue || 0}"></label></div><label>Направление<select id="directionValue"><option value="decrease">Уменьшить</option><option value="increase">Увеличить</option></select></label>`;
+      } else {
+        html = `<div class="grid-3"><label>Текущее<input id="currentValue" inputmode="decimal" value="${draft.currentValue || 0}"></label><label>Цель<input id="targetValue" inputmode="decimal" value="${draft.targetValue || 100}"></label><label>Единица<input id="unitValue" value="${escapeHtml(draft.unit || "%")}"></label></div>`;
+      }
+      byId("paramsFields").innerHTML = html;
+      if (byId("directionValue")) byId("directionValue").value = draft.direction || "decrease";
+      if (byId("requireFailConfirm")) byId("requireFailConfirm").value = String(draft.requireFailConfirm ?? true);
+      if (byId("missedIsFail")) byId("missedIsFail").value = String(draft.missedIsFail ?? false);
+    }
+    function renderCreateSummary() {
+      collectDraft();
+      byId("createSummary").innerHTML = `<p><b>Название:</b> ${escapeHtml(draft.name || "Без названия")}</p><p><b>Тип:</b> ${typeInfo[draft.trackingType].title}</p><p><b>Начало:</b> ${dateLabel(draft.startDate)}</p><p><b>Цель:</b> ${number(draft.targetValue)} ${escapeHtml(draft.unit || draft.currency || "")}</p>`;
+    }
+    function defaultDraft() {
+      return { name: "", trackingType: "daily", icon: "🚭", color: colors[0], startDate: localDate(), endDate: "", targetValue: 30, currentValue: 0, startValue: 0, dailyTarget: 0, unit: "дней", currency: "₽", note: "", direction: "decrease", requireFailConfirm: true, missedIsFail: false };
+    }
+    function collectDraft() {
+      if (byId("goalName")) draft.name = byId("goalName").value.trim();
+      if (byId("goalIconInput")) draft.icon = byId("goalIconInput").value.trim() || typeInfo[draft.trackingType].icon;
+      if (byId("goalNote")) draft.note = byId("goalNote").value.trim();
+      if (byId("startDate")) draft.startDate = byId("startDate").value || localDate();
+      if (byId("endDate")) draft.endDate = byId("endDate").value;
+      if (byId("targetValue")) draft.targetValue = Number(String(byId("targetValue").value || 0).replace(",", "."));
+      if (byId("currentValue")) draft.currentValue = Number(String(byId("currentValue").value || 0).replace(",", "."));
+      if (byId("startValue")) draft.startValue = Number(String(byId("startValue").value || 0).replace(",", "."));
+      if (byId("dailyTarget")) draft.dailyTarget = Number(String(byId("dailyTarget").value || 0).replace(",", "."));
+      if (byId("unitValue")) draft.unit = byId("unitValue").value.trim();
+      if (byId("currencyValue")) draft.currency = byId("currencyValue").value.trim() || "₽";
+      if (byId("directionValue")) draft.direction = byId("directionValue").value;
+      if (byId("requireFailConfirm")) draft.requireFailConfirm = byId("requireFailConfirm").value === "true";
+      if (byId("missedIsFail")) draft.missedIsFail = byId("missedIsFail").value === "true";
+    }
+    function openCreate() {
+      draft = defaultDraft();
+      createStep = 1;
+      byId("goalForm").reset();
+      byId("goalName").value = "";
+      byId("goalIconInput").value = draft.icon;
+      byId("goalNote").value = "";
+      byId("startDate").value = draft.startDate;
+      byId("endDate").value = "";
+      byId("createModal").hidden = false;
+      renderWizard();
+    }
+    function createGoal() {
+      collectDraft();
+      if (!draft.name) { toast("Введите название цели"); createStep = 1; renderWizard(); return; }
+      const goal = normalizeGoal({ ...draft, id: uid("goal"), createdAt: new Date().toISOString() });
+      if (goal.trackingType === "money" && goal.currentValue) goal.transactions.push({ date: goal.startDate, type: "income", amount: goal.currentValue, note: "Стартовая сумма" });
+      if (goal.trackingType === "measurement" && goal.startValue) goal.measurements.push({ date: goal.startDate, value: goal.startValue, note: "Старт" });
+      state.goals.unshift(goal);
+      saveState();
+      byId("createModal").hidden = true;
+      currentPage = "goals";
+      toast("Цель создана");
+      render();
+    }
+    function suggestType(name) {
+      const value = name.toLowerCase();
+      if (/кур|энерг|фаст|слад|алког|заряд|читать|ежеднев/.test(value)) return "daily";
+      if (/отжим|шаг|страниц|трен|раз|повтор|100|1000/.test(value)) return "quantity";
+      if (/накоп|деньг|руб|₽|долг|подуш|финанс/.test(value)) return "money";
+      if (/вес|кг|тал|давлен|сон|бег|уменьш|увелич/.test(value)) return "measurement";
+      return "custom";
+    }
+    function openDay(goalId, date) {
+      const goal = state.goals.find(g => g.id === goalId);
+      if (!goal) return;
+      byId("dayGoalId").value = goalId;
+      byId("dayDate").value = date;
+      byId("dayModalDate").textContent = dateLabel(date);
+      byId("dayModalGoal").textContent = goal.name;
+      byId("dayNote").value = "";
+      if (goal.trackingType === "daily") {
+        const record = goal.dailyRecords?.[date] || { status: "empty", note: "" };
+        byId("dayNote").value = record.note || "";
+        byId("dayFields").innerHTML = `<label>Статус<select id="dayStatus"><option value="success">Выполнено</option><option value="fail">Срыв</option><option value="empty">Без отметки</option></select></label>`;
+        byId("dayStatus").value = record.status || "empty";
+      } else if (goal.trackingType === "money") {
+        byId("dayFields").innerHTML = `<div class="grid-2"><label>Тип операции<select id="entryType"><option value="income">Пополнение</option><option value="expense">Списание</option></select></label><label>Сумма<input id="entryValue" inputmode="decimal" required></label></div>`;
+      } else {
+        byId("dayFields").innerHTML = `<label>Значение<input id="entryValue" inputmode="decimal" required></label>`;
+      }
+      byId("dayModal").hidden = false;
+    }
+    function saveDay(event) {
+      event.preventDefault();
+      const goal = state.goals.find(g => g.id === byId("dayGoalId").value);
+      const date = byId("dayDate").value;
+      const note = byId("dayNote").value.trim();
+      if (!goal) return;
+      if (goal.trackingType === "daily") {
+        const status = byId("dayStatus").value;
+        if (status === "fail" && prefs.confirmFail && !confirm("Поставить срыв на выбранный день?")) return;
+        if (status === "empty") delete goal.dailyRecords[date];
+        else goal.dailyRecords[date] = { status, note };
+      } else if (goal.trackingType === "money") {
+        const amount = Number(String(byId("entryValue").value || 0).replace(",", "."));
+        upsertEntry(goal.transactions, date, { date, type: byId("entryType").value, amount, note });
+      } else if (goal.trackingType === "measurement") {
+        const value = Number(String(byId("entryValue").value || 0).replace(",", "."));
+        upsertEntry(goal.measurements, date, { date, value, note });
+      } else {
+        const value = Number(String(byId("entryValue").value || 0).replace(",", "."));
+        if (goal.allowMultipleEntries) goal.entries.push({ date, value, note });
+        else upsertEntry(goal.entries, date, { date, value, note });
+      }
+      byId("dayModal").hidden = true;
+      saveState();
+      toast("Запись сохранена");
+      render();
+    }
+    function upsertEntry(list, date, entry) {
+      const index = list.findIndex(item => item.date === date);
+      if (index >= 0) list[index] = entry;
+      else list.push(entry);
+    }
+    function setToday(goalId, status) {
+      const goal = state.goals.find(g => g.id === goalId);
+      if (!goal) return;
+      if (status === "fail" && prefs.confirmFail && !confirm("Поставить срыв на сегодня?")) return;
+      goal.dailyRecords[localDate()] = { status, note: "" };
+      saveState();
+      toast(status === "success" ? "День выполнен" : "Срыв отмечен");
+      render();
+    }
+    function quickAdd(goalId, value) {
+      const goal = state.goals.find(g => g.id === goalId);
+      if (!goal) return;
+      const entry = { date: localDate(), value: Number(value), note: "Быстрое добавление" };
+      if (goal.trackingType === "money") goal.transactions.push({ date: localDate(), type: "income", amount: Number(value), note: "Быстрое добавление" });
+      else if (goal.trackingType === "measurement") upsertEntry(goal.measurements, localDate(), entry);
+      else goal.entries.push(entry);
+      saveState();
+      toast("Добавлено");
+      render();
+    }
+    function openBulk(goalId) {
+      const goal = state.goals.find(g => g.id === goalId);
+      if (!goal) return;
+      byId("bulkGoalId").value = goalId;
+      byId("bulkGoalName").textContent = goal.name;
+      byId("bulkStart").value = goal.startDate || localDate();
+      byId("bulkEnd").value = localDate();
+      byId("bulkStatus").value = "success";
+      byId("bulkNote").value = "";
+      byId("bulkModal").hidden = false;
+    }
+    function saveBulk(event) {
+      event.preventDefault();
+      const goal = state.goals.find(g => g.id === byId("bulkGoalId").value);
+      if (!goal) return;
+      const start = byId("bulkStart").value;
+      const end = byId("bulkEnd").value;
+      const status = byId("bulkStatus").value;
+      const note = byId("bulkNote").value.trim();
+      if (!confirm(`Будут изменены отметки с ${dateLabel(start)} по ${dateLabel(end)}. Продолжить?`)) return;
+      dateRange(start, end).forEach(date => {
+        if (status === "empty") delete goal.dailyRecords[date];
+        else goal.dailyRecords[date] = { status, note };
+      });
+      byId("bulkModal").hidden = true;
+      saveState();
+      toast("Прошлые дни заполнены");
+      render();
     }
     function render() {
       applyTheme();
-      renderChoices();
-      renderHome();
+      renderToday();
+      renderGoals();
+      renderStats();
       renderDetail();
-      renderVictories();
       document.querySelectorAll(".nav-btn[data-page]").forEach(btn => btn.classList.toggle("active", btn.dataset.page === currentPage));
       document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
       byId(`${currentPage}Page`)?.classList.add("active");
@@ -990,115 +1404,11 @@
       render();
       scrollTo({ top: 0, behavior: "smooth" });
     }
-    function openCreate() {
-      byId("pathForm").reset();
-      selectedType = "time";
-      selectedColor = colors[0];
-      selectedIcon = icons[0];
-      byId("startDate").value = today();
-      byId("unitValue").value = "дней";
-      renderChoices();
-      byId("createModal").hidden = false;
-    }
-    function createPath(event) {
-      event.preventDefault();
-      const type = types.find(item => item.id === selectedType) || types[0];
-      const path = {
-        id: uid("p"),
-        name: byId("pathName").value.trim(),
-        type: selectedType,
-        color: selectedColor,
-        icon: selectedIcon,
-        startDate: byId("startDate").value || today(),
-        endDate: byId("endDate").value,
-        current: Number(String(byId("currentValue").value || 0).replace(",", ".")),
-        target: Number(String(byId("targetValue").value || (selectedType === "time" ? 30 : 100)).replace(",", ".")),
-        unit: byId("unitValue").value.trim() || type.unit,
-        note: byId("pathNote").value.trim(),
-        moments: []
-      };
-      if (path.type === "time") path.current = daysBetween(path.startDate, today());
-      path.moments.push({ id: uid("m"), date: today(), value: path.current, note: "Путь начался." });
-      state.paths.unshift(path);
-      byId("createModal").hidden = true;
-      activePathId = path.id;
-      currentPage = "detail";
-      toast("Путь создан");
-      render();
-    }
-    function openProgress(id) {
-      const path = state.paths.find(item => item.id === id);
-      if (!path) return;
-      byId("progressPathId").value = id;
-      byId("progressValue").value = path.current;
-      byId("progressNote").value = "";
-      byId("progressPhoto").value = "";
-      byId("progressTitle").textContent = path.name;
-      byId("progressModal").hidden = false;
-    }
-    function openPhoto(id) {
-      const path = state.paths.find(item => item.id === id);
-      if (!path) return;
-      byId("photoPathId").value = id;
-      byId("photoDate").value = today();
-      byId("photoNote").value = "";
-      byId("photoFile").value = "";
-      byId("photoTitle").textContent = path.name;
-      byId("photoModal").hidden = false;
-    }
-    function updateProgress(event) {
-      event.preventDefault();
-      const path = state.paths.find(item => item.id === byId("progressPathId").value);
-      if (!path) return;
-      const finish = photo => {
-        path.current = Number(String(byId("progressValue").value).replace(",", "."));
-        path.moments.push({ id: uid("m"), date: today(), value: path.current, note: byId("progressNote").value.trim(), photo });
-        byId("progressModal").hidden = true;
-        toast(calcProgress(path) >= 100 ? "Финиш рядом" : "Путь обновлен");
-        render();
-      };
-      const file = byId("progressPhoto").files[0];
-      if (!file) return finish("");
-      const reader = new FileReader();
-      reader.onload = () => finish(reader.result);
-      reader.readAsDataURL(file);
-    }
-    function addPhoto(event) {
-      event.preventDefault();
-      const path = state.paths.find(item => item.id === byId("photoPathId").value);
-      const file = byId("photoFile").files[0];
-      if (!path || !file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        path.moments.push({
-          id: uid("m"),
-          date: byId("photoDate").value || today(),
-          value: path.current,
-          note: byId("photoNote").value.trim(),
-          photo: reader.result
-        });
-        byId("photoModal").hidden = true;
-        toast("Фото добавлено");
-        render();
-      };
-      reader.readAsDataURL(file);
-    }
-    function completePath(id) {
-      const path = state.paths.find(item => item.id === id);
-      if (!path) return;
-      path.completedAt = today();
-      path.current = path.target || path.current;
-      state.paths = state.paths.filter(item => item.id !== id);
-      state.victories.unshift(path);
-      activePathId = path.id;
-      toast("Победа сохранена");
-      render();
-    }
     function exportData() {
       const blob = new Blob([JSON.stringify({ state, prefs }, null, 2)], { type: "application/json" });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = `ravian-${today()}.json`;
+      link.download = `ravian-${localDate()}.json`;
       link.click();
       URL.revokeObjectURL(link.href);
     }
@@ -1108,8 +1418,10 @@
       reader.onload = () => {
         try {
           const parsed = JSON.parse(reader.result);
-          state = parsed.state || parsed;
-          prefs = parsed.prefs || prefs;
+          const nextState = parsed.state || parsed;
+          if (!nextState || (!Array.isArray(nextState.goals) && !Array.isArray(nextState.paths))) throw new Error("bad schema");
+          state = Array.isArray(nextState.goals) ? normalizeState(nextState) : migrateOldState(nextState);
+          prefs = { ...prefs, ...(parsed.prefs || {}) };
           savePrefs();
           saveState();
           toast("Данные импортированы");
@@ -1119,6 +1431,11 @@
         }
       };
       reader.readAsText(file);
+    }
+    function clearAllLocalData() {
+      Object.keys(localStorage).forEach(key => {
+        if (/^ravian/i.test(key)) localStorage.removeItem(key);
+      });
     }
     function toast(text) {
       const el = byId("toast");
@@ -1133,59 +1450,67 @@
       if (event.target.closest("[data-open-create]") || event.target.closest("#openCreateBtn")) openCreate();
       if (event.target.closest("[data-close-modal]")) event.target.closest(".modal").hidden = true;
       if (event.target.classList.contains("modal")) event.target.hidden = true;
-      const card = event.target.closest("[data-path-id]");
-      if (card && !event.target.closest("button")) {
-        activePathId = card.dataset.pathId;
-        currentPage = "detail";
-        render();
-        scrollTo({ top: 0, behavior: "smooth" });
-      }
-      const typeBtn = event.target.closest("[data-type]");
-      if (typeBtn) {
-        selectedType = typeBtn.dataset.type;
-        const type = types.find(item => item.id === selectedType);
-        byId("unitValue").value = type.unit;
-        renderChoices();
-      }
+      const mode = event.target.closest("[data-view-mode]");
+      if (mode) { currentView = mode.dataset.viewMode; renderGoals(); }
+      const goalRow = event.target.closest("[data-goal-id]");
+      if (goalRow && !event.target.closest("button[data-edit-day]")) { activeGoalId = goalRow.dataset.goalId; currentPage = "detail"; render(); scrollTo({ top: 0, behavior: "smooth" }); }
+      const selectType = event.target.closest("[data-select-type]");
+      if (selectType) { draft.trackingType = selectType.dataset.selectType; draft.unit = typeInfo[draft.trackingType].unit; draft.icon = typeInfo[draft.trackingType].icon; byId("goalIconInput").value = draft.icon; renderWizard(); }
       const colorBtn = event.target.closest("[data-color]");
-      if (colorBtn) { selectedColor = colorBtn.dataset.color; renderChoices(); }
-      const iconBtn = event.target.closest("[data-icon]");
-      if (iconBtn) { selectedIcon = iconBtn.dataset.icon; renderChoices(); }
-      const updateBtn = event.target.closest("[data-update]");
-      if (updateBtn) openProgress(updateBtn.dataset.update);
-      const addPhotoBtn = event.target.closest("[data-add-photo]");
-      if (addPhotoBtn) openPhoto(addPhotoBtn.dataset.addPhoto);
-      const completeBtn = event.target.closest("[data-complete]");
-      if (completeBtn) completePath(completeBtn.dataset.complete);
+      if (colorBtn) { draft.color = colorBtn.dataset.color; renderWizard(); }
+      const editDay = event.target.closest("[data-edit-day]");
+      if (editDay) openDay(editDay.dataset.editDay, editDay.dataset.date || localDate());
+      const setTodayBtn = event.target.closest("[data-set-today]");
+      if (setTodayBtn) setToday(setTodayBtn.dataset.setToday, setTodayBtn.dataset.status);
+      const quick = event.target.closest("[data-quick-add]");
+      if (quick) quickAdd(quick.dataset.quickAdd, quick.dataset.value);
+      const bulk = event.target.closest("[data-open-bulk]");
+      if (bulk) openBulk(bulk.dataset.openBulk);
+      const del = event.target.closest("[data-delete-goal]");
+      if (del && confirm("Удалить цель и все ее записи?")) { state.goals = state.goals.filter(g => g.id !== del.dataset.deleteGoal); activeGoalId = null; currentPage = "goals"; saveState(); render(); }
       const themeChoice = event.target.closest("[data-theme-choice]");
-      if (themeChoice) {
-        prefs.theme = themeChoice.dataset.themeChoice;
-        savePrefs();
-        render();
-      }
+      if (themeChoice) { prefs.theme = themeChoice.dataset.themeChoice; savePrefs(); render(); }
     });
-    byId("themeBtn").addEventListener("click", () => {
-      prefs.theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      savePrefs();
-      render();
+    byId("suggestTypeBtn").addEventListener("click", () => {
+      draft.trackingType = suggestType(byId("goalName").value);
+      draft.unit = typeInfo[draft.trackingType].unit;
+      draft.icon = typeInfo[draft.trackingType].icon;
+      byId("goalIconInput").value = draft.icon;
+      byId("suggestionText").textContent = `По названию больше всего подходит: ${typeInfo[draft.trackingType].title}.`;
+      renderWizard();
     });
-    byId("pathForm").addEventListener("submit", createPath);
-    byId("progressForm").addEventListener("submit", updateProgress);
-    byId("photoForm").addEventListener("submit", addPhoto);
+    byId("nextStepBtn").addEventListener("click", () => {
+      collectDraft();
+      if (createStep === 1 && !draft.name) { toast("Введите название цели"); return; }
+      if (createStep < 5) { createStep += 1; renderWizard(); }
+      else createGoal();
+    });
+    byId("prevStepBtn").addEventListener("click", () => { collectDraft(); createStep = Math.max(1, createStep - 1); renderWizard(); });
+    byId("dayForm").addEventListener("submit", saveDay);
+    byId("bulkForm").addEventListener("submit", saveBulk);
     byId("exportBtn").addEventListener("click", exportData);
     byId("importFile").addEventListener("change", event => importData(event.target.files[0]));
     byId("resetBtn").addEventListener("click", () => {
-      if (!confirm("Обнулить все данные Ravian на этом устройстве? Пути, победы и фото будут удалены.")) return;
+      if (!confirm("Обнулить все данные Ravian на этом устройстве?")) return;
       clearAllLocalData();
       state = emptyState();
-      prefs = { theme: "system" };
-      activePathId = null;
-      currentPage = "home";
+      prefs = defaultPrefs();
+      currentPage = "today";
       savePrefs();
       saveState();
       toast("Все данные обнулены");
       render();
     });
+    byId("themeBtn").addEventListener("click", () => {
+      const current = document.documentElement.dataset.theme;
+      prefs.theme = current === "dark" ? "light" : "dark";
+      savePrefs();
+      render();
+    });
+    byId("weekStartSetting").addEventListener("change", event => { prefs.weekStart = event.target.value; savePrefs(); render(); });
+    byId("dateFormatSetting").addEventListener("change", event => { prefs.dateFormat = event.target.value; savePrefs(); render(); });
+    byId("confirmFailSetting").addEventListener("change", event => { prefs.confirmFail = event.target.checked; savePrefs(); render(); });
+    byId("showEmptyStatsSetting").addEventListener("change", event => { prefs.showEmptyStats = event.target.checked; savePrefs(); render(); });
     matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
     render();

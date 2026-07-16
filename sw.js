@@ -1,4 +1,4 @@
-const CACHE_NAME = "ravian-v2";
+const CACHE_NAME = "ravian-v3";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {
